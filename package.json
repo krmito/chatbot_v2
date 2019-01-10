@@ -1,0 +1,20 @@
+{
+  "name": "helpdesk",
+  "version": "1.0.0",
+  "description": "NodeJS Application for IT help desk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pavan",
+  "license": "ISC",
+  "dependencies": {
+    "apiai": "^4.0.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "request": "^2.88.0",
+    "socket.io": "^2.0.4",
+    "tsc": "^1.20150623.0",
+    "uuid": "^3.1.0"
+  }
+}
