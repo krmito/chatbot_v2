@@ -160,74 +160,77 @@ socketio.on('connection', function (socket) {
         }
 
         if (text.trim() == 'PA' || opcion == 'PA') {
-          let mensajeCerti = "<b>" + usuario + " </b>, ¿ Qué tipo de certificado deseas generar ? </b>" +
+          let mensajeCerti = "<b>" + usuario + " </b>, ¿ Qué tipo de certificado deseas generar ? </br>" +
             " <b> - (AF) </b> Certificado de afiliación individual.</br>" +
             " <b> - (SF) </b> Extracto subsidio familiar.</br>" +
             " <b> - (CR) </b> Certificado afiliación retirado.</br>";
           socket.emit('ai response', mensajeCerti);
           estadoFlujo = "tipoDocPA"
         } else if (estadoFlujo = "tipoDocPA") {
-          console.log(opcion);
-          
-          if (opcion == 'inicial') {
-            let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
-              "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
-              "- <b>(CE)</b> Cédula de extranjería.</br>";
-            socket.emit('ai response', mensajeAF);
-            opcion = "AF";
 
-            //Estado sólo para el flujo de tipo documento
-            estadoFlujoTipoDocPA = "numDoc";
-            console.log(estadoFlujoTipoDoc);
-          }
+          if (text.trim() == "AF" || text.trim() == "SF" || text.trim() == "CR") {
 
-          if (estadoFlujoTipoDoc == "numDoc") {
-            console.log("Entro " + text);
+            console.log(opcion);
 
-            if (text.trim() == 'CC' || text.trim() == 'CE') {
-              abreviatura = text.trim();
-              tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
-              mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
-              socket.emit('ai response', mensajeNroDoc);
-              estadoFlujoTipoDoc = "validacionDoc";
+            if (opcion == 'inicial') {
+              let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
+                "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
+                "- <b>(CE)</b> Cédula de extranjería.</br>";
+              socket.emit('ai response', mensajeAF);
+              opcion = "AF";
+
+              //Estado sólo para el flujo de tipo documento
+              estadoFlujoTipoDocPA = "numDoc";
               console.log(estadoFlujoTipoDoc);
+            }
 
+            if (estadoFlujoTipoDoc == "numDoc") {
+              console.log("Entro " + text);
+
+              if (text.trim() == 'CC' || text.trim() == 'CE') {
+                abreviatura = text.trim();
+                tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
+                mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
+                socket.emit('ai response', mensajeNroDoc);
+                estadoFlujoTipoDoc = "validacionDoc";
+                console.log(estadoFlujoTipoDoc);
+
+              }
+            }
+
+            if (estadoFlujoTipoDoc == "validacionDoc") {
+              if (text.trim().match(/([^a-zA-Z])/g)) {
+                //Consultar el servicio
+                console.log("Entró a conslar el servicio");
+                numDocumento = text.trim();
+
+                utilities.utilities.functionWithCallBack(consultarServicio(abreviatura, numDocumento), 4000).then(res => {
+                  if (JSON.parse(datos).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado != undefined) {
+                    let afiliado = JSON.parse(datos).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado;
+                    let calidadAfiliado = afiliado.calidadAfiliado;
+                    let fechaAfiliacion = afiliado.fechaAfiliacionSistema;
+                    let tipoAfiliado = afiliado.tipoAfiliado;
+                    let correos = afiliado.email;
+
+                    let mensajeAfilaido = "<b>" + usuario + "</b> se ha verificado exitosamente tu número de documento." +
+                      "</br> Tu calidad de afiliado es:</br> <b>" + calidadAfiliado + "</b>" +
+                      "</br> La fecha de tu afiliación es:</br> <b>" + fechaAfiliacion + "</b>" +
+                      "</br> IPS de atención:</br> <b>" + tipoAfiliado + "</b>" +
+                      "</br> Tu correo es:</br> <b>" + correos + ".</b>" +
+                      "</br> Que desear hacer ahora :" + usuario + "?</b>" +
+                      "</br>" +
+                      "</br> 1. Volver al menú" +
+                      "</br> 2. Nada";
+                    socket.emit('ai response', mensajeAfilaido);
+                    estadoFlujo = "deseo";
+                  } else {
+                    let userNoFound = "Número de cédula no registrado";
+                    socket.emit('ai response', userNoFound);
+                  }
+                });
+              }
             }
           }
-
-          if (estadoFlujoTipoDoc == "validacionDoc") {
-            if (text.trim().match(/([^a-zA-Z])/g)) {
-              //Consultar el servicio
-              console.log("Entró a conslar el servicio");
-              numDocumento = text.trim();
-
-              utilities.utilities.functionWithCallBack(consultarServicio(abreviatura, numDocumento), 4000).then(res => {
-                if (JSON.parse(datos).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado != undefined) {
-                  let afiliado = JSON.parse(datos).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado;
-                  let calidadAfiliado = afiliado.calidadAfiliado;
-                  let fechaAfiliacion = afiliado.fechaAfiliacionSistema;
-                  let tipoAfiliado = afiliado.tipoAfiliado;
-                  let correos = afiliado.email;
-
-                  let mensajeAfilaido = "<b>" + usuario + "</b> se ha verificado exitosamente tu número de documento." +
-                    "</br> Tu calidad de afiliado es:</br> <b>" + calidadAfiliado + "</b>" +
-                    "</br> La fecha de tu afiliación es:</br> <b>" + fechaAfiliacion + "</b>" +
-                    "</br> IPS de atención:</br> <b>" + tipoAfiliado + "</b>" +
-                    "</br> Tu correo es:</br> <b>" + correos + ".</b>" +
-                    "</br> Que desear hacer ahora :" + usuario + "?</b>" +
-                    "</br>" +
-                    "</br> 1. Volver al menú" +
-                    "</br> 2. Nada";
-                  socket.emit('ai response', mensajeAfilaido);
-                  estadoFlujo = "deseo";
-                } else {
-                  let userNoFound = "Número de cédula no registrado";
-                  socket.emit('ai response', userNoFound);
-                }
-              });
-            }
-          }
-
         }
       } else if (estadoFlujo == "deseo") {
 
