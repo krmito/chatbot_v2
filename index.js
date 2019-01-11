@@ -140,10 +140,10 @@ socketio.on('connection', function (socket) {
                   let correos = afiliado.email;
 
                   let mensajeAfilaido = "<b>" + usuario + "</b> se ha verificado exitosamente tu número de documento." +
-                    "</br> Tu calidad de afiliado es: <b></br>" + calidadAfiliado + "</b>" +
-                    "</br> La fecha de tu afiliación es: <b></br>" + fechaAfiliacion + "</b>" +
-                    "</br> IPS de atención: <b></br>" + tipoAfiliado + "</b>" +
-                    "</br> Tu correo es: <b></br>" + correos + ".</b>" +
+                    "</br> Tu calidad de afiliado es:</br> <b>" + calidadAfiliado + "</b>" +
+                    "</br> La fecha de tu afiliación es:</br> <b>" + fechaAfiliacion + "</b>" +
+                    "</br> IPS de atención:</br> <b>" + tipoAfiliado + "</b>" +
+                    "</br> Tu correo es:</br> <b>" + correos + ".</b>" +
                     "</br> Que desear hacer ahora :" + usuario + "?</b>" +
                     "</br>" +
                     "</br> 1. Volver al menú" +
@@ -163,6 +163,7 @@ socketio.on('connection', function (socket) {
         if (text.trim() == 1 || text.trim() == 'Volver al menu') {
           socket.emit('ai response', mensajeHola);
           estadoFlujo = "tipoDoc";
+          opcion = "inicial"
           console.log(estadoFlujo);
           
         } else if (text.trim() == 2 || text.trim() == 'Nada') {
