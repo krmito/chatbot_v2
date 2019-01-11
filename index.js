@@ -24,7 +24,7 @@ var dia = fechaActual.getDate();
 var mes = fechaActual.getMonth();
 var anio = fechaActual.getFullYear();
 var mesString;
-var estadoFlujo = "";
+var estadoFlujo = "init";
 var estadoFlujoTipoDoc = "";
 var estadoFlujoTipoDocPA = "";
 var usuario = "Gomito98";
@@ -76,11 +76,12 @@ socketio.on('connection', function (socket) {
       llamar el servicio para confirmar afiliación.*/
       console.log("Estado iniciando: " + estadoFlujo);
       console.log("Estado  sub: " + estadoFlujoTipoDocPA);
-      let nombre = "Hola, por favor dime tu nombre";
-      socket.emit('ai response', nombre);
-      estadoFlujo = "nombre";
 
-      if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "nombre") {
+      if (estadoFlujo == "init") {
+        let nombre = "Hola, por favor dime tu nombre";
+        socket.emit('ai response', nombre);
+        estadoFlujo = "nombre";
+      } else if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "nombre") {
         usuario = text.trim();
         estadoFlujo = "menu";
       } else if (text.trim() == 'hola' && estadoFlujo == "menu") {
