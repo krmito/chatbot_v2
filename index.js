@@ -182,11 +182,11 @@ socketio.on('connection', function (socket) {
               opcion = "AF";
 
               //Estado sólo para el flujo de tipo documento
-              estadoFlujoTipoDocPA = "numDoc";
+              estadoFlujoTipoDocPA = "numDocPA";
               console.log(estadoFlujoTipoDoc);
             }
 
-            if (estadoFlujoTipoDoc == "numDoc") {
+            if (estadoFlujoTipoDoc == "numDocPA") {
               console.log("Entro " + text);
 
               if (text.trim() == 'CC' || text.trim() == 'CE') {
@@ -194,13 +194,13 @@ socketio.on('connection', function (socket) {
                 tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
                 mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
                 socket.emit('ai response', mensajeNroDoc);
-                estadoFlujoTipoDoc = "validacionDoc";
+                estadoFlujoTipoDoc = "validacionDocPA";
                 console.log(estadoFlujoTipoDoc);
 
               }
             }
 
-            if (estadoFlujoTipoDoc == "validacionDoc") {
+            if (estadoFlujoTipoDoc == "validacionDocPA") {
               if (text.trim().match(/([^a-zA-Z])/g)) {
                 //Consultar el servicio
                 console.log("Entró a conslar el servicio");
