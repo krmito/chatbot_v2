@@ -67,10 +67,10 @@ socketio.on('connection', function (socket) {
 
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
-      /*  console.log('AI Response: ' + aiResponse);
-       
-       console.log('Intent ID: ', intentId);
-       socket.emit('Intent ID: ', intentId); */
+      console.log('AI Response: ' + aiResponse);
+      /*
+      console.log('Intent ID: ', intentId);
+      socket.emit('Intent ID: ', intentId); */
 
       /*Si el intent de DialogFlow es el de ingresar documento,
       llamar el servicio para confirmar afiliación.*/
