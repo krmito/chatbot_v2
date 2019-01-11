@@ -159,11 +159,11 @@ socketio.on('connection', function (socket) {
           }
         }
       } else if (estadoFlujo == "deseo") {
-
+          
+          opcion = "inicial"
         if (text.trim() == 1 || text.trim() == 'Volver al menu') {
           socket.emit('ai response', mensajeHola);
           estadoFlujo = "tipoDoc";
-          opcion = "inicial"
           console.log(estadoFlujo);
           
         } else if (text.trim() == 2 || text.trim() == 'Nada') {
