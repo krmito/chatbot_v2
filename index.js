@@ -27,7 +27,7 @@ var mesString;
 var estadoFlujo = "menu";
 var estadoFlujoTipoDoc = "";
 var usuario = "Gomito98";
-var opcion = "";
+var opcion = "inicial";
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
 
@@ -92,15 +92,15 @@ socketio.on('connection', function (socket) {
         if ((text == 'AF') || (opcion == 'AF')) {
           console.log("Entro AF");
 
-          opcion = "AF";
-
-          if (opcion != 'AF') {
+          
+          if (opcion == 'incial') {
             let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
               "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
               "- <b>(CE)</b> Cédula de extranjería.</br>";
             socket.emit('ai response', mensajeAF);
-
           }
+
+          opcion = "AF";
 
           //Estado solo para el flujo de tipo documento
           estadoFlujoTipoDoc = "numDoc";
