@@ -140,17 +140,16 @@ socketio.on('connection', function (socket) {
                   let correos = afiliado.email;
 
                   let mensajeAfilaido = "<b>" + usuario + "</b> se ha verificado exitosamente tu número de documento." +
-                    "</br> Tu calidad de afiliado es: <b>" + calidadAfiliado + "</b>" +
-                    "</br> La fecha de tu afiliación es: <b>" + fechaAfiliacion + "</b>" +
-                    "</br> IPS de atención: <b>" + tipoAfiliado + "</b>" +
-                    "</br> Tu correo es: <b>" + correos + ".</b>" +
+                    "</br> Tu calidad de afiliado es: <b></br>" + calidadAfiliado + "</b>" +
+                    "</br> La fecha de tu afiliación es: <b></br>" + fechaAfiliacion + "</b>" +
+                    "</br> IPS de atención: <b></br>" + tipoAfiliado + "</b>" +
+                    "</br> Tu correo es: <b></br>" + correos + ".</b>" +
                     "</br> Que desear hacer ahora :" + usuario + "?</b>" +
-                    "</br>" +
                     "</br>" +
                     "</br> 1. Volver al menú" +
                     "</br> 2. Nada";
                   socket.emit('ai response', mensajeAfilaido);
-                  estadoFlujoTipoDoc = "deseo";
+                  estadoFlujo = "deseo";
                 } else {
                   let userNoFound = "Número de cédula no registrado";
                   socket.emit('ai response', mensajeHola);
@@ -159,7 +158,7 @@ socketio.on('connection', function (socket) {
             }
           }
         }
-      } else if (estadoFlujoTipoDoc == "deseo") {
+      } else if (estadoFlujo == "deseo") {
 
         if (text.trim() == 1 || text.trim() == 'Volver al menu') {
           socket.emit('ai response', mensajeHola);
