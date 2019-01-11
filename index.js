@@ -76,8 +76,13 @@ socketio.on('connection', function (socket) {
       llamar el servicio para confirmar afiliación.*/
       console.log("Estado iniciando: " + estadoFlujo);
       console.log("Estado  sub: " + estadoFlujoTipoDocPA);
+      let nombre = "Hola, por favor dime tu nombre";
+      socket.emit('ai response', nombre);
+      estadoFlujo = "nombre";
 
-      if (text.trim() == 'hola' && estadoFlujo == "menu") {
+      if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "nombre") {
+        usuario = text.trim();
+      } else if (text.trim() == 'hola' && estadoFlujo == "menu") {
         mensajeHola = "Hola " + usuario + ", Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
           "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
