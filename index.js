@@ -165,8 +165,10 @@ socketio.on('connection', function (socket) {
             " <b> - (SF) </b> Extracto subsidio familiar.</br>" +
             " <b> - (CR) </b> Certificado afiliación retirado.</br>";
           socket.emit('ai response', mensajeCerti);
-          estadoFlujo = "tipoDocPA"
+          estadoFlujo = "tipoDocPA";
+
         } else if (estadoFlujo = "tipoDocPA") {
+          console.log("Entro a AF");
 
           if (text.trim() == "AF" || text.trim() == "SF" || text.trim() == "CR") {
 
