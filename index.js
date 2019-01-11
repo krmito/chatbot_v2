@@ -74,7 +74,7 @@ socketio.on('connection', function (socket) {
       llamar el servicio para confirmar afiliación.*/
       console.log("Estado iniciando: " + estadoFlujo);
 
-      if (text == 'hola' && estadoFlujo == "menu") {
+      if (text.trim() == 'hola' && estadoFlujo == "menu") {
         let mensajeHola = "Hola " + usuario + ", Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
           "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
@@ -93,7 +93,7 @@ socketio.on('connection', function (socket) {
 
         console.log("Tipo Doc:" + text);
 
-        if (text == 'AF' || opcion == 'AF') {
+        if (text.trim() == 'AF' || opcion == 'AF') {
           console.log("Entro AF");
           console.log("OPCIÓN: " + opcion);
 
@@ -113,7 +113,7 @@ socketio.on('connection', function (socket) {
           if (estadoFlujoTipoDoc == "numDoc") {
             console.log("Entro " + text);
 
-            if (text == 'CC' || text == 'CE') {
+            if (text.trim() == 'CC' || text.trim() == 'CE') {
               abreviatura = text;
               tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
               mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
@@ -126,7 +126,7 @@ socketio.on('connection', function (socket) {
 
           if (estadoFlujoTipoDoc == "validacionDoc") {
             
-            if (text.match(/([^a-zA-Z])/g)) {
+            if (text.trim().match(/([^a-zA-Z])/g)) {
               //Consultar el servicio
               console.log("Entró a conslar el servicio");
               consultarServicio(String(abreviatura), Number(numDocumento));
