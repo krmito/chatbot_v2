@@ -90,6 +90,8 @@ socketio.on('connection', function (socket) {
         console.log("Tipo Doc:" + text);
 
         if (text == 'AF' || opcion == 'AF') {
+          console.log("Entro AF");
+          
           opcion = "AF";
           let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
             "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
