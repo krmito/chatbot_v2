@@ -93,7 +93,7 @@ socketio.on('connection', function (socket) {
 
         console.log("Tipo Doc:" + text);
 
-        if ((text == 'AF') || (opcion == 'AF')) {
+        if (text == 'AF' || opcion == 'AF') {
           console.log("Entro AF");
           console.log("OPCIÓN: " + opcion);
 
