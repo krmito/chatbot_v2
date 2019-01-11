@@ -64,57 +64,86 @@ socketio.on('connection', function (socket) {
       /*Si el intent de DialogFlow es el de ingresar documento,
       llamar el servicio para confirmar afiliación.*/
 
-      if(text == 'hola' && estadoFlujo == 'menu'){
+      if (text == 'hola' && estadoFlujo == 'menu') {
         let mensajeHola = "Hola " + usuario + ", Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
-        "¿Qué desea realizar? <br /> " +
-        "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
-        " - <b>(AF)</b> Estado de afiliación<br />"+
-        " - <b>(PA)</b> Pagos en línea<br />" +
-        " - <b>(SU)</b> Afiliación<br />" +
-        " - <b>(PR)</b> Pre-afiliación<br />" +
-        " - <b>(YA)</b> Yanaconas<br />" +
-        " - <b>(VA)</b> Valle del lili<br />" +
-        " - <b>(PQ)</b> PQRS´s<br />";
+          "¿Qué desea realizar? <br /> " +
+          "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
+          " - <b>(AF)</b> Estado de afiliación<br />" +
+          " - <b>(PA)</b> Pagos en línea<br />" +
+          " - <b>(SU)</b> Afiliación<br />" +
+          " - <b>(PR)</b> Pre-afiliación<br />" +
+          " - <b>(YA)</b> Yanaconas<br />" +
+          " - <b>(VA)</b> Valle del lili<br />" +
+          " - <b>(PQ)</b> PQRS´s<br />";
         socket.emit('ai response', mensajeHola);
-        
-        estadoFlujo = ''
+
+        //Cambiamos el estado del flujo
+        let estado = cambiarEstado(text.toString().toUpperCase());
+        console.log(estado);
+
+      } else if (estadoFlujo == 'AF') {
+
+        let mensajeAF = usuario + ", escoje tu tipo de documento< /br>" +
+          "(CC) Cédula de ciudadanía.< /br>" +
+          "(CE) Cédula de extranjería.< /br>";
+        socket.emit('ai response', mensajeAF);
+
+        estadoFlujo = 'AF';
+
+      } else if (text.toString().toUpperCase() == 'PA') {
+
+
+      } else if (text.toString().toUpperCase() == 'SU') {
+
+
+      } else if (text.toString().toUpperCase() == 'PR') {
+
+
+      } else if (text.toString().toUpperCase() == 'YA') {
+
+
+      } else if (text.toString().toUpperCase() == 'VA') {
+
+
+      } else if (text.toString().toUpperCase() == 'PQ') {
+
       }
 
-     /*  if (intentId == '26cf2070-fed7-4bff-b1db-6ba04b5d8f25') {
-        consultarServicio("CC", text);
-        availableDates();
-        let promise = new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve(datos);
-          }, 1000);
-        });
-
-        promise.then((res) => {
-
-          console.log('res', res);
-          var availableDate = '';
-
-          arregloDias.forEach((element, index) => {
-            console.log('heyy', index, element);
-            index = index + 1;
-            availableDate += index + '.' + element.text;
-          });
-
-
-          if (JSON.parse(res).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado != undefined) {
-            let afiliado = JSON.parse(res).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado;
-            let calidadAfiliado = afiliado.calidadAfiliado;
-            let fechaAfiliacion = afiliado.fechaAfiliacionSistema;
-            let tipoAfiliado = afiliado.tipoAfiliado;
-            let correos = afiliado.email;
-            console.log("Calidad afiliado: " + calidadAfiliado + "  Fecha afiliación: " + fechaAfiliacion);
-            let mensaje = "Tu calidad es de: " + calidadAfiliado + ",\n estás afiliado desde: " + fechaAfiliacion + "\n y tu tipo de afiliación es: " + tipoAfiliado + "\n y los días disponibles para citas son: " + availableDate;
-            socket.emit('ai response', mensaje);
-          }
-        });
-      } else {
-        socket.emit('ai response', aiResponse);
-      } */
+      /*  if (intentId == '26cf2070-fed7-4bff-b1db-6ba04b5d8f25') {
+         consultarServicio("CC", text);
+         availableDates();
+         let promise = new Promise((resolve, reject) => {
+           setTimeout(() => {
+             resolve(datos);
+           }, 1000);
+         });
+ 
+         promise.then((res) => {
+ 
+           console.log('res', res);
+           var availableDate = '';
+ 
+           arregloDias.forEach((element, index) => {
+             console.log('heyy', index, element);
+             index = index + 1;
+             availableDate += index + '.' + element.text;
+           });
+ 
+ 
+           if (JSON.parse(res).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado != undefined) {
+             let afiliado = JSON.parse(res).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado;
+             let calidadAfiliado = afiliado.calidadAfiliado;
+             let fechaAfiliacion = afiliado.fechaAfiliacionSistema;
+             let tipoAfiliado = afiliado.tipoAfiliado;
+             let correos = afiliado.email;
+             console.log("Calidad afiliado: " + calidadAfiliado + "  Fecha afiliación: " + fechaAfiliacion);
+             let mensaje = "Tu calidad es de: " + calidadAfiliado + ",\n estás afiliado desde: " + fechaAfiliacion + "\n y tu tipo de afiliación es: " + tipoAfiliado + "\n y los días disponibles para citas son: " + availableDate;
+             socket.emit('ai response', mensaje);
+           }
+         });
+       } else {
+         socket.emit('ai response', aiResponse);
+       } */
     });
 
     aiReq.on('error', (error) => {
@@ -166,4 +195,16 @@ function availableDates() {
     }
     contador++;
   }
+}
+
+function cambiarEstado(texto) {
+
+  switch (texo) {
+    case "AF" || "Estado afiliación":
+      estadoFlujo == "AF"
+      break;
+    default:
+      break;
+  }
+  return estadoFlujo;
 }
