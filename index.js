@@ -65,13 +65,15 @@ socketio.on('connection', function (socket) {
       llamar el servicio para confirmar afiliación.*/
 
       if(text == 'hola' && estadoFlujo == 'menu'){
-        let mensajeHola = "Hola " + usuario + ", Bienvenido a la línea de comfenalco Valle de la gente.<br />" +
-        "¿Qué desea realizar?(indica el número o escriba la palabra. ejemplo: 1 para citas o 'citas')<br />" +
+        let mensajeHola = "Hola " + usuario + ", Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
+        "¿Qué desea realizar? <br /> " +
+        "(indica el número o escriba la palabra. ejemplo: 1 para citas o 'citas')<br />" +
         " 1. Citas<br />"+
         " 2. Subsidios<br />" +
         " 3. Afiliación<br />" +
         " 4. Cancelar<br />";
         socket.emit('ai response', mensajeHola);
+        
       }
 
      /*  if (intentId == '26cf2070-fed7-4bff-b1db-6ba04b5d8f25') {
