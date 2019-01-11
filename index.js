@@ -92,7 +92,7 @@ socketio.on('connection', function (socket) {
             let tipoAfiliado = afiliado.tipoAfiliado;
             let correos = afiliado.email;
             console.log("Calidad afiliado: " + calidadAfiliado + "  Fecha afiliación: " + fechaAfiliacion);
-            let mensaje = "Tu calidad es de: " + calidadAfiliado + ", estás afiliado desde: " + fechaAfiliacion + " y tu tipo de afiliación es: " + tipoAfiliado + " y los días disponibles para citas son: " + availableDate;
+            let mensaje = "Tu calidad es de: " + calidadAfiliado + ",\n estás afiliado desde: " + fechaAfiliacion + "\n y tu tipo de afiliación es: " + tipoAfiliado + "\n y los días disponibles para citas son: " + availableDate;
             socket.emit('ai response', mensaje);
           }
         });
