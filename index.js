@@ -83,7 +83,7 @@ socketio.on('connection', function (socket) {
         estadoFlujo = "tipoDoc";
         console.log(estadoFlujo);
 
-      } else if (estadoFlujo.localeCompare("tipoDoc")) {
+      } else if (estadoFlujo == "tipoDoc") {
 
         console.log("Tipo Doc:" + text) ;
         
