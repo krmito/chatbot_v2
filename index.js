@@ -68,13 +68,13 @@ socketio.on('connection', function (socket) {
         let mensajeHola = "Hola " + usuario + ", Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
         "¿Qué desea realizar? <br /> " +
         "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
-        " (AF) Estado de afiliación<br />"+
-        " (PA) Pagos en línea<br />" +
-        " (SU) Afiliación<br />" +
-        " (PR) Pre-afiliación<br />" +
-        " (YA) Yanaconas<br />" +
-        " (VA) Valle del lili<br />" +
-        " (PQ) PQRS´s<br />";
+        " - <b>(AF)</b> Estado de afiliación<br />"+
+        " - <b>(PA)</b> Pagos en línea<br />" +
+        " - <b>(SU)</b> Afiliación<br />" +
+        " - <b>(PR)</b> Pre-afiliación<br />" +
+        " - <b>(YA)</b> Yanaconas<br />" +
+        " - <b>(VA)</b> Valle del lili<br />" +
+        " - <b>(PQ)</b> PQRS´s<br />";
         socket.emit('ai response', mensajeHola);
         
         estadoFlujo = ''
