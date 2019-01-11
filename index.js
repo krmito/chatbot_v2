@@ -92,7 +92,7 @@ socketio.on('connection', function (socket) {
         if ((text == 'AF') || (opcion == 'AF')) {
           console.log("Entro AF");
           console.log("OPCIÓN: " + opcion);
-          
+
 
           if (opcion == 'inicial') {
             let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
@@ -101,7 +101,7 @@ socketio.on('connection', function (socket) {
             socket.emit('ai response', mensajeAF);
             opcion = "AF";
 
-            //Estado solo para el flujo de tipo documento
+            //Estado sólo para el flujo de tipo documento
             estadoFlujoTipoDoc = "numDoc";
             console.log(estadoFlujoTipoDoc);
           }
@@ -115,6 +115,10 @@ socketio.on('connection', function (socket) {
               socket.emit('ai response', mensajeNroDoc);
               estadoFlujoTipoDoc = "validacionDoc";
             }
+          }
+
+          if (estadoFlujoTipoDoc == "validacionDoc") {
+            
           }
         }
 
