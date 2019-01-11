@@ -162,6 +162,7 @@ socketio.on('connection', function (socket) {
 
         if (text.trim() == 1 || text.trim() == 'Volver al menu') {
           socket.emit('ai response', mensajeHola);
+          estadoFlujo = "tipoDoc";
         } else if (text.trim() == 2 || text.trim() == 'Nada'.toLocaleLowerCase()) {
           let adios = "Adios " + usuario + ", hasta la próxima."
           socket.emit('ai response', adios);
