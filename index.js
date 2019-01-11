@@ -130,20 +130,21 @@ socketio.on('connection', function (socket) {
               console.log("Entró a conslar el servicio");
               numDocumento = text.trim();
 
-              consultarServicio(abreviatura, numDocumento);
+              utilities.utilities.functionWithCallBack(consultarServicio(abreviatura, numDocumento), 4000).then(res => {
+                let afiliado = JSON.parse(datos).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado;
+                let calidadAfiliado = afiliado.calidadAfiliado;
+                let fechaAfiliacion = afiliado.fechaAfiliacionSistema;
+                let tipoAfiliado = afiliado.tipoAfiliado;
+                let correos = afiliado.email;
 
-              let afiliado = JSON.parse(datos).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado;
-              let calidadAfiliado = afiliado.calidadAfiliado;
-              let fechaAfiliacion = afiliado.fechaAfiliacionSistema;
-              let tipoAfiliado = afiliado.tipoAfiliado;
-              let correos = afiliado.email;
+                let mensajeAfilaido = "<b>" + usuario + " se ha verificado exitosamente tu número de documento." +
+                  "</br> Tu calidad de afiliado es: " + calidadAfiliado +
+                  "</br> La fecha de tu afiliación es: " + fechaAfiliacion +
+                  "</br> IPS de atención: " + tipoAfiliado +
+                  "</br> Tu correo es: " + correos;
+                socket.emit('ai response', mensajeAfilaido);
+              });
 
-              let mensajeAfilaido = "<b>" + usuario + " se ha verificado exitosamente tu número de documento." +
-                "</br> Tu calidad de afiliado es: " + calidadAfiliado +
-                "</br> La fecha de tu afiliación es: " + fechaAfiliacion +
-                "</br> IPS de atención: " + tipoAfiliado +
-                "</br> Tu correo es: " + correos;
-              socket.emit('ai response', mensajeAfilaido);
             }
           }
         }
