@@ -107,7 +107,7 @@ socketio.on('connection', function (socket) {
           }
 
           if (estadoFlujoTipoDoc == "numDoc") {
-            console.log("Entro");
+            console.log("Entro" + text);
 
             if ((text == 'CC') || (text == 'CE')) {
               let tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
