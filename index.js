@@ -12,6 +12,9 @@ const AI_SESSION_ID = uuidv1();
 const dialogflow = require('apiai');
 const ai = dialogflow(ACCESS_TOKEN);
 
+const TIPO_DOC = "tipoDoc";
+const MENU = "menu"
+const NUM_DOC = "numDoc";
 
 const servicioAfiliadoEPS = require('./services/consultaAfiliadoEPS');
 const utilities = require('./public/js/utilities');
@@ -64,7 +67,7 @@ socketio.on('connection', function (socket) {
       /*Si el intent de DialogFlow es el de ingresar documento,
       llamar el servicio para confirmar afiliación.*/
 
-      if (text == 'hola' && estadoFlujo == 'menu') {
+      if (text == 'hola' && estadoFlujo == MENU) {
         let mensajeHola = "Hola " + usuario + ", Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
           "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
@@ -76,26 +79,30 @@ socketio.on('connection', function (socket) {
           " - <b>(VA)</b> Valle del lili<br />" +
           " - <b>(PQ)</b> PQRS´s<br />";
         socket.emit('ai response', mensajeHola);
-        estadoFlujo = 'opcion';
-        
+        estadoFlujo = 'TIPO_DOC';
+
 
       } else if (estadoFlujo == 'opcion' && text == 'AF') {
 
         //Cambiamos el estado del flujo
-        estadoFlujo = cambiarEstado(text.toString().toUpperCase());
-        console.log(estadoFlujo);
+        /* estadoFlujo = cambiarEstado(text.toString().toUpperCase());
+        console.log(estadoFlujo); */
 
         let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
           "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
           "- <b>(CE)</b> Cédula de extranjería.</br>";
         socket.emit('ai response', mensajeAF);
 
-        if(text == 'CC' || text.toLowerCase() == 'cédula de ciudadanía'){
+        estadoFlujo = NUM_DOC;
+
+        if (estadoFlujo = NUM_DOC && text == 'CC' || text.toLowerCase() == 'cédula de ciudadanía'
+          || text == 'CE' || text.toLowerCase() == 'Cédula de extranjería') {
+
           let tipoDoc = texto == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
           let mensajeNroDoc = usuario + ", digita tu número de " + tipoDoc;
 
           socket.emit('ai response', mensajeNroDoc);
-
+          
         }
 
       } else if (text.toString().toUpperCase() == 'PA') {
