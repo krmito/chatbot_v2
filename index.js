@@ -96,7 +96,7 @@ socketio.on('connection', function (socket) {
           estadoFlujo = "numDoc";
           console.log(estadoFlujo);
           
-          if (estadoFlujo = "numDoc" && (text == 'CC' || text == 'cédula de ciudadanía')
+          if (estadoFlujo == "numDoc" && (text == 'CC' || text == 'cédula de ciudadanía')
             || (text == 'CE' || text == 'Cédula de extranjería')) {
 
             let tipoDoc = texto == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
