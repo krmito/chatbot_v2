@@ -180,10 +180,10 @@ socketio.on('connection', function (socket) {
           console.log(opcion);
 
           if (opcion == 'inicial') {
-            let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
+            let mensajeAFS = usuario + ", escoje tu tipo de documento</br>" +
               "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
               "- <b>(CE)</b> Cédula de extranjería.</br>";
-            socket.emit('ai response', mensajeAF);
+            socket.emit('ai response', mensajeAFS);
             opcion = "AF_PA";
 
             //Estado sólo para el flujo de tipo documento
