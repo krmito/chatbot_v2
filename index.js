@@ -71,7 +71,7 @@ socketio.on('connection', function (socket) {
         " 2. Subsidios\n" +
         " 3. Afiliación\n" +
         " 4. Cancelar\n";
-        socket.emit('ai response', mensaje);
+        socket.emit('ai response', mensajeHola);
       }
 
      /*  if (intentId == '26cf2070-fed7-4bff-b1db-6ba04b5d8f25') {
