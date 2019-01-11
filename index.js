@@ -258,9 +258,8 @@ socketio.on('connection', function (socket) {
           estadoFlujo = "menu";
         }
       } else {
-        let adios = "Hola " + usuario + ", no te entiendo."
-        socket.emit('ai response', adios);
-        estadoFlujo = "menu";
+        let noEntiendo = "Hola " + usuario + ", no te entiendo."
+        socket.emit('ai response', noEntiendo);
       }
     });
     aiReq.on('error', (error) => {
