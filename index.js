@@ -199,7 +199,7 @@ function availableDates() {
 
 function cambiarEstado(texto) {
 
-  switch (texo) {
+  switch (texto) {
     case "AF" || "Estado afiliación":
       estadoFlujo == "AF"
       break;
