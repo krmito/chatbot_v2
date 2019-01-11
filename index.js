@@ -24,7 +24,7 @@ var dia = fechaActual.getDate();
 var mes = fechaActual.getMonth();
 var anio = fechaActual.getFullYear();
 var mesString;
-var estadoFlujo = "init";
+var estadoFlujo = "menu";
 var estadoFlujoTipoDoc = "";
 var estadoFlujoTipoDocPA = "";
 var usuario;
@@ -77,11 +77,7 @@ socketio.on('connection', function (socket) {
       console.log("Estado iniciando: " + estadoFlujo);
       console.log("Estado  sub: " + estadoFlujoTipoDocPA);
 
-      if (estadoFlujo == "init") {
-        let nombre = "Hola, por favor dime tu nombre";
-        socket.emit('ai response', nombre);
-        estadoFlujo = "menu";
-      } else if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
+      if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
         mensajeHola = "Hola <b>" + usuario + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
