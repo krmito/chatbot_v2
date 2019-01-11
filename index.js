@@ -102,6 +102,9 @@ socketio.on('connection', function (socket) {
             socket.emit('ai response', mensajeNroDoc);
             estadoFlujo = "validacionDoc";
           }
+        }else{
+          let error = "No te entendí " + usuario + " el estado es : " + estadoFlujo;
+          socket.emit('ai response', error);
         }
 
 
