@@ -26,6 +26,7 @@ var anio = fechaActual.getFullYear();
 var mesString;
 var estadoFlujo = "menu";
 var estadoFlujoTipoDoc = "";
+var estadoFlujoTipoDocPA = "";
 var usuario = "Gomito98";
 var opcion = "inicial";
 var mensajeNroDoc = "";
@@ -189,7 +190,7 @@ socketio.on('connection', function (socket) {
               console.log(estadoFlujoTipoDoc);
             }
 
-            if (estadoFlujoTipoDoc == "numDocPA") {
+            if (estadoFlujoTipoDocPA == "numDocPA") {
               console.log("Entro " + text);
 
               if (text.trim() == 'CC' || text.trim() == 'CE') {
@@ -197,13 +198,13 @@ socketio.on('connection', function (socket) {
                 tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
                 mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
                 socket.emit('ai response', mensajeNroDoc);
-                estadoFlujoTipoDoc = "validacionDocPA";
-                console.log(estadoFlujoTipoDoc);
+                estadoFlujoTipoDocPA = "validacionDocPA";
+                console.log(estadoFlujoTipoDocPA);
 
               }
             }
 
-            if (estadoFlujoTipoDoc == "validacionDocPA") {
+            if (estadoFlujoTipoDocPA == "validacionDocPA") {
               if (text.trim().match(/([^a-zA-Z])/g)) {
                 //Consultar el servicio
                 console.log("Entró a conslar el servicio");
