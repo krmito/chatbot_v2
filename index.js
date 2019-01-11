@@ -106,7 +106,7 @@ socketio.on('connection', function (socket) {
             console.log("Entro");
 
             if ((text == 'CC') || (text == 'CE')) {
-              let tipoDoc = texto == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
+              let tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
               let mensajeNroDoc = usuario + ", digita tu número de " + tipoDoc;
               socket.emit('ai response', mensajeNroDoc);
               estadoFlujoTipoDoc = "validacionDoc";
