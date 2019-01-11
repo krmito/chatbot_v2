@@ -104,9 +104,10 @@ socketio.on('connection', function (socket) {
 
 
           if (opcion == 'inicial') {
-            let mensajeAF = "<b>" + usuario + "</b>, escoje tu tipo de documento</br>" +
+            let mensajeAF = "<b>" + usuario + "</b>, digita el tipo de documento por favor</br>" +
               "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
-              "- <b>(CE)</b> Cédula de extranjería.</br>";
+              "- <b>(CE)</b> Cédula de extranjería.</br>" +
+              "- <b>(CA)</b> Cancelar";
             socket.emit('ai response', mensajeAF);
             opcion = "AF";
 
