@@ -94,7 +94,7 @@ socketio.on('connection', function (socket) {
           console.log("OPCIÓN: " + opcion);
           
 
-          if (opcion == 'incial') {
+          if (opcion == 'inicial') {
             let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
               "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
               "- <b>(CE)</b> Cédula de extranjería.</br>";
