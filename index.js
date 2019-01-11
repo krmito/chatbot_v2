@@ -27,6 +27,7 @@ var mesString;
 var estadoFlujo = "menu";
 var estadoFlujoTipoDoc = "";
 var usuario = "Gomito98";
+var opcion = "";
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
 
@@ -88,7 +89,8 @@ socketio.on('connection', function (socket) {
 
         console.log("Tipo Doc:" + text);
 
-        if (text == 'AF') {
+        if (text == 'AF' || opcion == 'AF') {
+          opcion = "AF";
           let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
             "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
             "- <b>(CE)</b> Cédula de extranjería.</br>";
@@ -100,16 +102,17 @@ socketio.on('connection', function (socket) {
 
           if (estadoFlujoTipoDoc == "numDoc") {
             console.log("Entro");
-            
-            if ((text == 'CC')||(text == 'CE')) {
+
+            if ((text == 'CC') || (text == 'CE')) {
               let tipoDoc = texto == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
               let mensajeNroDoc = usuario + ", digita tu número de " + tipoDoc;
               socket.emit('ai response', mensajeNroDoc);
               estadoFlujoTipoDoc = "validacionDoc";
             }
           }
-
         }
+
+
       }
 
       /*  if (intentId == '26cf2070-fed7-4bff-b1db-6ba04b5d8f25') {
