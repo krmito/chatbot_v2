@@ -67,7 +67,7 @@ socketio.on('connection', function (socket) {
       /*Si el intent de DialogFlow es el de ingresar documento,
       llamar el servicio para confirmar afiliación.*/
       console.log("Estado iniciando: " + estadoFlujo);
-      
+
       if (text == 'hola' && estadoFlujo == "menu") {
         let mensajeHola = "Hola " + usuario + ", Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
@@ -85,8 +85,8 @@ socketio.on('connection', function (socket) {
 
       } else if (estadoFlujo == "tipoDoc") {
 
-        console.log("Tipo Doc:" + text) ;
-        
+        console.log("Tipo Doc:" + text);
+
         if (text == 'AF') {
           let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
             "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
@@ -95,76 +95,72 @@ socketio.on('connection', function (socket) {
 
           estadoFlujo = "numDoc";
           console.log(estadoFlujo);
-          
-          if (estadoFlujo == "numDoc" && (text == 'CC' || text == 'cédula de ciudadanía')
-            || (text == 'CE' || text == 'Cédula de extranjería')) {
 
-            let tipoDoc = texto == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
-            let mensajeNroDoc = usuario + ", digita tu número de " + tipoDoc;
-            socket.emit('ai response', mensajeNroDoc);
-            estadoFlujo = "validacionDoc";
+          if (estadoFlujo == "numDoc") {
+
+            if ((text == 'CC' || text == 'cédula de ciudadanía') || (text == 'CE' || text == 'Cédula de extranjería')) {
+              let tipoDoc = texto == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
+              let mensajeNroDoc = usuario + ", digita tu número de " + tipoDoc;
+              socket.emit('ai response', mensajeNroDoc);
+              estadoFlujo = "validacionDoc";
+            }
           }
-        }else{
-          let error = "No te entendí " + usuario + " el estado es : " + estadoFlujo;
-          socket.emit('ai response', error);
+
+        } else if (text.toString().toUpperCase() == 'PA') {
+
+
+        } else if (text.toString().toUpperCase() == 'SU') {
+
+
+        } else if (text.toString().toUpperCase() == 'PR') {
+
+
+        } else if (text.toString().toUpperCase() == 'YA') {
+
+
+        } else if (text.toString().toUpperCase() == 'VA') {
+
+
+        } else if (text.toString().toUpperCase() == 'PQ') {
+
         }
 
-
-      } else if (text.toString().toUpperCase() == 'PA') {
-
-
-      } else if (text.toString().toUpperCase() == 'SU') {
-
-
-      } else if (text.toString().toUpperCase() == 'PR') {
-
-
-      } else if (text.toString().toUpperCase() == 'YA') {
-
-
-      } else if (text.toString().toUpperCase() == 'VA') {
-
-
-      } else if (text.toString().toUpperCase() == 'PQ') {
-
-      }
-
-      /*  if (intentId == '26cf2070-fed7-4bff-b1db-6ba04b5d8f25') {
-         consultarServicio("CC", text);
-         availableDates();
-         let promise = new Promise((resolve, reject) => {
-           setTimeout(() => {
-             resolve(datos);
-           }, 1000);
-         });
- 
-         promise.then((res) => {
- 
-           console.log('res', res);
-           var availableDate = '';
- 
-           arregloDias.forEach((element, index) => {
-             console.log('heyy', index, element);
-             index = index + 1;
-             availableDate += index + '.' + element.text;
+        /*  if (intentId == '26cf2070-fed7-4bff-b1db-6ba04b5d8f25') {
+           consultarServicio("CC", text);
+           availableDates();
+           let promise = new Promise((resolve, reject) => {
+             setTimeout(() => {
+               resolve(datos);
+             }, 1000);
            });
- 
- 
-           if (JSON.parse(res).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado != undefined) {
-             let afiliado = JSON.parse(res).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado;
-             let calidadAfiliado = afiliado.calidadAfiliado;
-             let fechaAfiliacion = afiliado.fechaAfiliacionSistema;
-             let tipoAfiliado = afiliado.tipoAfiliado;
-             let correos = afiliado.email;
-             console.log("Calidad afiliado: " + calidadAfiliado + "  Fecha afiliación: " + fechaAfiliacion);
-             let mensaje = "Tu calidad es de: " + calidadAfiliado + ",\n estás afiliado desde: " + fechaAfiliacion + "\n y tu tipo de afiliación es: " + tipoAfiliado + "\n y los días disponibles para citas son: " + availableDate;
-             socket.emit('ai response', mensaje);
-           }
-         });
-       } else {
-         socket.emit('ai response', aiResponse);
-       } */
-    });
+       
+           promise.then((res) => {
+       
+             console.log('res', res);
+             var availableDate = '';
+       
+             arregloDias.forEach((element, index) => {
+               console.log('heyy', index, element);
+               index = index + 1;
+               availableDate += index + '.' + element.text;
+             });
+       
+       
+             if (JSON.parse(res).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado != undefined) {
+               let afiliado = JSON.parse(res).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado;
+               let calidadAfiliado = afiliado.calidadAfiliado;
+               let fechaAfiliacion = afiliado.fechaAfiliacionSistema;
+               let tipoAfiliado = afiliado.tipoAfiliado;
+               let correos = afiliado.email;
+               console.log("Calidad afiliado: " + calidadAfiliado + "  Fecha afiliación: " + fechaAfiliacion);
+               let mensaje = "Tu calidad es de: " + calidadAfiliado + ",\n estás afiliado desde: " + fechaAfiliacion + "\n y tu tipo de afiliación es: " + tipoAfiliado + "\n y los días disponibles para citas son: " + availableDate;
+               socket.emit('ai response', mensaje);
+             }
+           });
+         } else {
+           socket.emit('ai response', aiResponse);
+         } */
+      });
 
     aiReq.on('error', (error) => {
       console.log(error);
