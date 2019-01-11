@@ -28,6 +28,10 @@ var estadoFlujo = "menu";
 var estadoFlujoTipoDoc = "";
 var usuario = "Gomito98";
 var opcion = "inicial";
+var mensajeNroDoc = "";
+var tipoDoc = "";
+var abreviatura;
+var numDocumento;
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
 
@@ -107,18 +111,40 @@ socketio.on('connection', function (socket) {
           }
 
           if (estadoFlujoTipoDoc == "numDoc") {
-            console.log("Entro" + text);
+            console.log("Entro " + text);
 
             if (text == 'CC' || text == 'CE') {
-              let tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
-              let mensajeNroDoc = usuario + ", digita tu número de " + tipoDoc;
+              abreviatura = text;
+              tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
+              mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
               socket.emit('ai response', mensajeNroDoc);
               estadoFlujoTipoDoc = "validacionDoc";
             }
           }
 
           if (estadoFlujoTipoDoc == "validacionDoc") {
-            
+
+            if (text.match(/([^a-zA-Z])/g)) {
+              //Consultar el servicio
+              console.log("Entró a conslar el servicio");
+              numDocumento = text;
+              consultarServicio(String(abreviatura), Number(numDocumento));
+              let afiliado = JSON.parse(datos).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado;
+              let calidadAfiliado = afiliado.calidadAfiliado;
+              let fechaAfiliacion = afiliado.fechaAfiliacionSistema;
+              let tipoAfiliado = afiliado.tipoAfiliado;
+              let correos = afiliado.email;
+              let mensajeAfilaido = "<b>" + usuario + " se ha verificado exitosamente tu número de documento." +
+                "</br> Tu calidad de afiliado es: " + calidadAfiliado +
+                "</br> La fecha de tu afiliación es: " + fechaAfiliacion +
+                "</br> IPS de atención: " + tipoAfiliado +
+                "</br> Estos son los días que tenemos citas disponibles: </br>";
+
+              socket.emit('ai response', mensajeAfilaido);
+            } else {
+              let cedulaValida = "<b>" + usuario + "</b>, por favor digita una " + tipoDoc + " válida";
+              socket.emit('ai response', cedulaValida);
+            }
           }
         }
 
