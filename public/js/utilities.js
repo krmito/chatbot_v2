@@ -8,8 +8,7 @@ var utilities = /** @class */ (function () {
             console.log('entro1');
             setTimeout(function () {
                 console.log('entro3');
-                functionX;
-                resolve();
+                resolve(functionX);
             }, timeout);
         });
         return promise;

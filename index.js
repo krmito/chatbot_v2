@@ -149,7 +149,6 @@ socketio.on('connection', function (socket) {
                   socket.emit('ai response', userNoFound);
                 }
               });
-
             }
           }
         }
@@ -203,13 +202,10 @@ socketio.on('connection', function (socket) {
 
 
 function consultarServicio(tipo, cedula) {
-
-  setTimeout(() => {
     servicioAfiliadoEPS.servicioAfiliadoEPS.armaObjetos(tipo, cedula, (x) => {
       console.log('RESPONSE: ', x);
       datos = x;
     });
-  }, 5000);
   return datos;
 }
 
@@ -241,16 +237,4 @@ function availableDates() {
     }
     contador++;
   }
-}
-
-function cambiarEstado(texto) {
-
-  switch (texto) {
-    case "AF" || "Estado afiliación":
-      estadoFlujo == "AF"
-      break;
-    default:
-      break;
-  }
-  return estadoFlujo;
 }
