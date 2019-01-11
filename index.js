@@ -167,6 +167,7 @@ socketio.on('connection', function (socket) {
           socket.emit('ai response', mensajeCerti);
           estadoFlujo = "tipoDocPA";
         }
+
       } else if (estadoFlujo = "tipoDocPA") {
         console.log("Entro a AFI");
 
@@ -234,7 +235,8 @@ socketio.on('connection', function (socket) {
           }
         }
       } else if (estadoFlujo == "deseo") {
-
+        console.log("Entró a deseo");
+        
         opcion = "inicial"
         if (text.trim() == 1 || text.trim() == 'Volver al menu') {
           socket.emit('ai response', mensajeHola);
