@@ -87,8 +87,9 @@ socketio.on('connection', function (socket) {
           " - <b>(SU)</b> Afiliación<br />" +
           " - <b>(PR)</b> Pre-afiliación<br />" +
           " - <b>(YA)</b> Yanaconas<br />" +
-          " - <b>(VA)</b> Valle del lilí<br />" +
-          " - <b>(PQ)</b> PQRS´s<br />";
+          " - <b>(VA)</b> Valle del lili<br />" +
+          " - <b>(PQ)</b> PQRS´s<br />" +
+          " - <b>(CA)</b> Cancelar";
         socket.emit('ai response', mensajeHola);
         estadoFlujo = "tipoDoc";
         console.log(estadoFlujo);
@@ -103,7 +104,7 @@ socketio.on('connection', function (socket) {
 
 
           if (opcion == 'inicial') {
-            let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
+            let mensajeAF = "<b>" + usuario + "</b>, escoje tu tipo de documento</br>" +
               "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
               "- <b>(CE)</b> Cédula de extranjería.</br>";
             socket.emit('ai response', mensajeAF);
