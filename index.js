@@ -66,7 +66,8 @@ socketio.on('connection', function (socket) {
 
       /*Si el intent de DialogFlow es el de ingresar documento,
       llamar el servicio para confirmar afiliación.*/
-
+      console.log("Estado iniciando: " + estadoFlujo);
+      
       if (text == 'hola' && estadoFlujo == "menu") {
         let mensajeHola = "Hola " + usuario + ", Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
@@ -82,23 +83,27 @@ socketio.on('connection', function (socket) {
         estadoFlujo = "tipoDoc";
         console.log(estadoFlujo);
 
-      } else if (estadoFlujo == "tipoDoc" && text == 'AF') {
+      } else if (estadoFlujo == "tipoDoc") {
 
-        let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
-          "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
-          "- <b>(CE)</b> Cédula de extranjería.</br>";
-        socket.emit('ai response', mensajeAF);
+        if (text == 'AF') {
+          let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
+            "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
+            "- <b>(CE)</b> Cédula de extranjería.</br>";
+          socket.emit('ai response', mensajeAF);
 
-        estadoFlujo = "numDoc";
+          estadoFlujo = "numDoc";
+          console.log(estadoFlujo);
+          
+          if (estadoFlujo = "numDoc" && text == 'CC' || text == 'cédula de ciudadanía'
+            || text == 'CE' || text == 'Cédula de extranjería') {
 
-        if (estadoFlujo = "numDoc" && text == 'CC' || text.toLowerCase() == 'cédula de ciudadanía'
-          || text == 'CE' || text.toLowerCase() == 'Cédula de extranjería') {
-
-          let tipoDoc = texto == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
-          let mensajeNroDoc = usuario + ", digita tu número de " + tipoDoc;
-          socket.emit('ai response', mensajeNroDoc);
-          estadoFlujo = "validacionDoc";
+            let tipoDoc = texto == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
+            let mensajeNroDoc = usuario + ", digita tu número de " + tipoDoc;
+            socket.emit('ai response', mensajeNroDoc);
+            estadoFlujo = "validacionDoc";
+          }
         }
+
 
       } else if (text.toString().toUpperCase() == 'PA') {
 
