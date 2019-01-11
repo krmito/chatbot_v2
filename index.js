@@ -129,7 +129,7 @@ socketio.on('connection', function (socket) {
             if (text.trim().match(/([^a-zA-Z])/g)) {
               //Consultar el servicio
               console.log("Entró a conslar el servicio");
-              numDocumento = Number(numDocumento);
+              numDocumento = Number(text);
               consultarServicio(abreviatura, numDocumento);
               let afiliado = JSON.parse(datos).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado;
               let calidadAfiliado = afiliado.calidadAfiliado;
