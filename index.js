@@ -96,18 +96,19 @@ socketio.on('connection', function (socket) {
 
           //Estado solo para el flujo de tipo documento
           estadoFlujoTipoDoc = "numDoc";
-          console.log(estadoFlujo);
+          console.log(estadoFlujoTipoDoc);
 
           if (estadoFlujoTipoDoc == "numDoc") {
-
-            if ((text == 'CC' || text == 'cédula de ciudadanía')||(text == 'CE' || text == 'Cédula de extranjería')) {
+            console.log("Entro");
+            
+            if ((text == 'CC')||(text == 'CE')) {
               let tipoDoc = texto == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
               let mensajeNroDoc = usuario + ", digita tu número de " + tipoDoc;
               socket.emit('ai response', mensajeNroDoc);
               estadoFlujoTipoDoc = "validacionDoc";
             }
           }
-          
+
         }
       }
 
