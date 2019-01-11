@@ -161,7 +161,7 @@ socketio.on('connection', function (socket) {
 
         if (text.trim() == 'PA' || opcion == 'PA') {
           console.log("Entró a PA");
-          
+
           let mensajeCerti = "<b>" + usuario + " </b>, ¿ Qué tipo de certificado deseas generar ? </br>" +
             " <b> - (AFI) </b> Certificado de afiliación individual.</br>" +
             " <b> - (SF) </b> Extracto subsidio familiar.</br>" +
@@ -170,75 +170,9 @@ socketio.on('connection', function (socket) {
           estadoFlujo = "tipoDocPA";
         }
 
-      } else if (estadoFlujo = "tipoDocPA") {
-        console.log("Entro a AFI");
-
-        if (text.trim() == "AFI" || text.trim() == "SF" || text.trim() == "CR") {
-
-          console.log(opcion);
-
-          if (opcion == 'inicial') {
-            let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
-              "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
-              "- <b>(CE)</b> Cédula de extranjería.</br>";
-            socket.emit('ai response', mensajeAF);
-            opcion = "AF";
-
-            //Estado sólo para el flujo de tipo documento
-            estadoFlujoTipoDocPA = "numDocPA";
-            console.log(estadoFlujoTipoDoc);
-          }
-
-          if (estadoFlujoTipoDoc == "numDocPA") {
-            console.log("Entro " + text);
-
-            if (text.trim() == 'CC' || text.trim() == 'CE') {
-              abreviatura = text.trim();
-              tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
-              mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
-              socket.emit('ai response', mensajeNroDoc);
-              estadoFlujoTipoDoc = "validacionDocPA";
-              console.log(estadoFlujoTipoDoc);
-
-            }
-          }
-
-          if (estadoFlujoTipoDoc == "validacionDocPA") {
-            if (text.trim().match(/([^a-zA-Z])/g)) {
-              //Consultar el servicio
-              console.log("Entró a conslar el servicio");
-              numDocumento = text.trim();
-
-              utilities.utilities.functionWithCallBack(consultarServicio(abreviatura, numDocumento), 4000).then(res => {
-                if (JSON.parse(datos).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado != undefined) {
-                  let afiliado = JSON.parse(datos).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado;
-                  let calidadAfiliado = afiliado.calidadAfiliado;
-                  let fechaAfiliacion = afiliado.fechaAfiliacionSistema;
-                  let tipoAfiliado = afiliado.tipoAfiliado;
-                  let correos = afiliado.email;
-
-                  let mensajeAfilaido = "<b>" + usuario + "</b> se ha verificado exitosamente tu número de documento." +
-                    "</br> Tu calidad de afiliado es:</br> <b>" + calidadAfiliado + "</b>" +
-                    "</br> La fecha de tu afiliación es:</br> <b>" + fechaAfiliacion + "</b>" +
-                    "</br> IPS de atención:</br> <b>" + tipoAfiliado + "</b>" +
-                    "</br> Tu correo es:</br> <b>" + correos + ".</b>" +
-                    "</br> Que desear hacer ahora :" + usuario + "?</b>" +
-                    "</br>" +
-                    "</br> 1. Volver al menú" +
-                    "</br> 2. Nada";
-                  socket.emit('ai response', mensajeAfilaido);
-                  estadoFlujo = "deseo";
-                } else {
-                  let userNoFound = "Número de cédula no registrado";
-                  socket.emit('ai response', userNoFound);
-                }
-              });
-            }
-          }
-        }
       } else if (estadoFlujo == "deseo") {
         console.log("Entró a deseo");
-        
+
         opcion = "inicial"
         if (text.trim() == 1 || text.trim() == 'Volver al menu') {
           socket.emit('ai response', mensajeHola);
@@ -252,13 +186,10 @@ socketio.on('connection', function (socket) {
         }
       }
     });
-
     aiReq.on('error', (error) => {
       console.log(error);
     });
-
     aiReq.end();
-
   });
 });
 
@@ -269,34 +200,4 @@ function consultarServicio(tipo, cedula) {
     datos = x;
   });
   return datos;
-}
-
-
-function availableDates() {
-  switch (mes) {
-    case 0: { mesString = 'January' } break;
-    case 1: { mesString = 'February' } break;
-    case 2: { mesString = 'March' } break;
-    case 3: { mesString = 'April' } break;
-    case 4: { mesString = 'May' } break;
-    case 5: { mesString = 'June' } break;
-    case 6: { mesString = 'July' } break;
-    case 7: { mesString = 'August' } break;
-    case 8: { mesString = 'September' } break;
-    case 9: { mesString = 'October' } break;
-    case 10: { mesString = 'November' } break;
-    case 11: { mesString = 'December' } break;
-  }
-
-  let diasDisponibles = fechaActual.getDay();
-  let contador = 0;
-  /// ESTO ES EN CASO DE QUE EL HORARIO DE ATENFCIÓN SEA DE LUNES A VIERNES, EN CAOS DE QUE SE VA ATENDER FINES DE SEMANA HAY QUE HACER ALGO ADICIONAL
-  for (let i = diasDisponibles; i <= 5; i++) {
-    if (i == diasDisponibles) {
-      arregloDias.push({ "text": 'Hoy ' + utilities.utilities.diaSemana(dia, mesString, anio) + ' ' + dia + '/' + (fechaActual.getMonth() + 1) + '/' + anio });
-    } else if (i > diasDisponibles) {
-      arregloDias.push({ "text": utilities.utilities.diaSemana(dia + contador, mesString, anio) + ' ' + (dia + contador) + '/' + (fechaActual.getMonth() + 1) + '/' + anio });
-    }
-    contador++;
-  }
 }
