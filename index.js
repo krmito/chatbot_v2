@@ -32,6 +32,7 @@ var mensajeNroDoc = "";
 var tipoDoc = "";
 var abreviatura = "";
 var numDocumento = 0;
+var mensajeHola = "";
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
 
@@ -75,7 +76,7 @@ socketio.on('connection', function (socket) {
       console.log("Estado iniciando: " + estadoFlujo);
 
       if (text.trim() == 'hola' && estadoFlujo == "menu") {
-        let mensajeHola = "Hola " + usuario + ", Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
+        mensajeHola = "Hola " + usuario + ", Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
           "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
           " - <b>(AF)</b> Estado de afiliación<br />" +
@@ -138,19 +139,33 @@ socketio.on('connection', function (socket) {
                   let tipoAfiliado = afiliado.tipoAfiliado;
                   let correos = afiliado.email;
 
-                  let mensajeAfilaido = "<b>" + usuario + " se ha verificado exitosamente tu número de documento." +
-                    "</br> Tu calidad de afiliado es: " + calidadAfiliado +
-                    "</br> La fecha de tu afiliación es: " + fechaAfiliacion +
-                    "</br> IPS de atención: " + tipoAfiliado +
-                    "</br> Tu correo es: " + correos;
+                  let mensajeAfilaido = "<b>" + usuario + "</b> se ha verificado exitosamente tu número de documento." +
+                    "</br> Tu calidad de afiliado es: <b>" + calidadAfiliado + "</b>" +
+                    "</br> La fecha de tu afiliación es: <b>" + fechaAfiliacion + "</b>" +
+                    "</br> IPS de atención: <b>" + tipoAfiliado + "</b>" +
+                    "</br> Tu correo es: <b>" + correos + ".</b>" +
+                    "</br> Que desear hacer ahora :" + usuario + "?</b>" +
+                    "</br>" +
+                    "</br>" +
+                    "</br> 1. Volver al menú" +
+                    "</br> 2. Nada";
                   socket.emit('ai response', mensajeAfilaido);
-                }else{
+                  estadoFlujoTipoDoc = "deseo";
+                } else {
                   let userNoFound = "Número de cédula no registrado";
-                  socket.emit('ai response', userNoFound);
+                  socket.emit('ai response', mensajeHola);
                 }
               });
             }
           }
+        }
+      } else if (estadoFlujoTipoDoc == "deseo") {
+
+        if (text.trim() == 1 || text.trim() == 'Volver al menu') {
+          socket.emit('ai response', mensajeHola);
+        } else if (text.trim() == 2 || text.trim() == 'Nada'.toLocaleLowerCase()) {
+          let adios = "Adios " + usuario + ", hasta la próxima."
+          socket.emit('ai response', adios);
         }
       }
 
@@ -202,10 +217,10 @@ socketio.on('connection', function (socket) {
 
 
 function consultarServicio(tipo, cedula) {
-    servicioAfiliadoEPS.servicioAfiliadoEPS.armaObjetos(tipo, cedula, (x) => {
-      console.log('RESPONSE: ', x);
-      datos = x;
-    });
+  servicioAfiliadoEPS.servicioAfiliadoEPS.armaObjetos(tipo, cedula, (x) => {
+    console.log('RESPONSE: ', x);
+    datos = x;
+  });
   return datos;
 }
 
