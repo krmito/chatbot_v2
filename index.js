@@ -92,19 +92,18 @@ socketio.on('connection', function (socket) {
         if ((text == 'AF') || (opcion == 'AF')) {
           console.log("Entro AF");
 
-          
+
           if (opcion == 'incial') {
             let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
               "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
               "- <b>(CE)</b> Cédula de extranjería.</br>";
             socket.emit('ai response', mensajeAF);
+            opcion = "AF";
+
+            //Estado solo para el flujo de tipo documento
+            estadoFlujoTipoDoc = "numDoc";
+            console.log(estadoFlujoTipoDoc);
           }
-
-          opcion = "AF";
-
-          //Estado solo para el flujo de tipo documento
-          estadoFlujoTipoDoc = "numDoc";
-          console.log(estadoFlujoTipoDoc);
 
           if (estadoFlujoTipoDoc == "numDoc") {
             console.log("Entro");
