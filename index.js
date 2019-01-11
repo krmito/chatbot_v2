@@ -160,6 +160,8 @@ socketio.on('connection', function (socket) {
         }
 
         if (text.trim() == 'PA' || opcion == 'PA') {
+          console.log("Entró a PA");
+          
           let mensajeCerti = "<b>" + usuario + " </b>, ¿ Qué tipo de certificado deseas generar ? </br>" +
             " <b> - (AFI) </b> Certificado de afiliación individual.</br>" +
             " <b> - (SF) </b> Extracto subsidio familiar.</br>" +
