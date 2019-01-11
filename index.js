@@ -77,16 +77,17 @@ socketio.on('connection', function (socket) {
           " - <b>(PQ)</b> PQRS´s<br />";
         socket.emit('ai response', mensajeHola);
 
+        estadoFlujo = 'AF';
 
-      } else if (text == 'AF') {
+      } else if (estadoFlujo == 'AF' && text == 'AF') {
 
         //Cambiamos el estado del flujo
         estadoFlujo = cambiarEstado(text.toString().toUpperCase());
         console.log(estadoFlujo);
 
-        let mensajeAF = usuario + ", escoje tu tipo de documento< /br>" +
-          "(CC) Cédula de ciudadanía.< /br>" +
-          "(CE) Cédula de extranjería.< /br>";
+        let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
+          "(CC) Cédula de ciudadanía.</br>" +
+          "(CE) Cédula de extranjería.</br>";
         socket.emit('ai response', mensajeAF);
 
         if(text == 'CC' || text.toLowerCase() == 'cédula de ciudadanía'){
