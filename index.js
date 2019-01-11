@@ -119,32 +119,34 @@ socketio.on('connection', function (socket) {
               mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
               socket.emit('ai response', mensajeNroDoc);
               estadoFlujoTipoDoc = "validacionDoc";
+              console.log(estadoFlujoTipoDoc);
+              
             }
           }
 
           if (estadoFlujoTipoDoc == "validacionDoc") {
-
+            
             if (text.match(/([^a-zA-Z])/g)) {
               //Consultar el servicio
               console.log("Entró a conslar el servicio");
-              numDocumento = text;
               consultarServicio(String(abreviatura), Number(numDocumento));
               let afiliado = JSON.parse(datos).responseMessageOut.body.response.consultaAfiliadoResponse.afiliado;
               let calidadAfiliado = afiliado.calidadAfiliado;
               let fechaAfiliacion = afiliado.fechaAfiliacionSistema;
               let tipoAfiliado = afiliado.tipoAfiliado;
               let correos = afiliado.email;
+
               let mensajeAfilaido = "<b>" + usuario + " se ha verificado exitosamente tu número de documento." +
                 "</br> Tu calidad de afiliado es: " + calidadAfiliado +
                 "</br> La fecha de tu afiliación es: " + fechaAfiliacion +
                 "</br> IPS de atención: " + tipoAfiliado +
                 "</br> Estos son los días que tenemos citas disponibles: </br>";
-
               socket.emit('ai response', mensajeAfilaido);
-            } else {
+
+            } /* else {
               let cedulaValida = "<b>" + usuario + "</b>, por favor digita una " + tipoDoc + " válida";
               socket.emit('ai response', cedulaValida);
-            }
+            } */
           }
         }
 
