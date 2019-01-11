@@ -77,18 +77,25 @@ socketio.on('connection', function (socket) {
           " - <b>(PQ)</b> PQRS´s<br />";
         socket.emit('ai response', mensajeHola);
 
-        //Cambiamos el estado del flujo
-        let estado = cambiarEstado(text.toString().toUpperCase());
-        console.log(estado);
 
-      } else if (estadoFlujo == 'AF') {
+      } else if (texto == 'AF') {
+
+        //Cambiamos el estado del flujo
+        estadoFlujo = cambiarEstado(text.toString().toUpperCase());
+        console.log(estadoFlujo);
 
         let mensajeAF = usuario + ", escoje tu tipo de documento< /br>" +
           "(CC) Cédula de ciudadanía.< /br>" +
           "(CE) Cédula de extranjería.< /br>";
         socket.emit('ai response', mensajeAF);
 
-        estadoFlujo = 'AF';
+        if(texto == 'CC' || texto.toLowerCase() == 'cédula de ciudadanía'){
+          let tipoDoc = texto == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
+          let mensajeNroDoc = usuario + ", digita tu número de " + tipoDoc;
+
+          socket.emit('ai response', mensajeNroDoc);
+          
+        }
 
       } else if (text.toString().toUpperCase() == 'PA') {
 
