@@ -161,13 +161,14 @@ socketio.on('connection', function (socket) {
 
         if (text.trim() == 'PA' || opcion == 'PA') {
           let mensajeCerti = "<b>" + usuario + " </b>, ¿ Qué tipo de certificado deseas generar ? </b>" +
-            " </b> - (AF) Certificado de afiliación individual." +
-            " </b> - (SF) Extracto subsidio familiar." +
-            " </b> - (CR) Certificado afiliación retirado.";
+            " <b> - (AF) </b> Certificado de afiliación individual.</br>" +
+            " <b> - (SF) </b> Extracto subsidio familiar.</br>" +
+            " <b> - (CR) </b> Certificado afiliación retirado.</br>";
           socket.emit('ai response', mensajeCerti);
           estadoFlujo = "tipoDocPA"
         } else if (estadoFlujo = "tipoDocPA") {
-
+          console.log(opcion);
+          
           if (opcion == 'inicial') {
             let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
               "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
