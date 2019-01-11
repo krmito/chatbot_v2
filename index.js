@@ -12,8 +12,8 @@ const AI_SESSION_ID = uuidv1();
 const dialogflow = require('apiai');
 const ai = dialogflow(ACCESS_TOKEN);
 
+const MENU = "menu";
 const TIPO_DOC = "tipoDoc";
-const MENU = "menu"
 const NUM_DOC = "numDoc";
 
 const servicioAfiliadoEPS = require('./services/consultaAfiliadoEPS');
@@ -24,7 +24,7 @@ var dia = fechaActual.getDate();
 var mes = fechaActual.getMonth();
 var anio = fechaActual.getFullYear();
 var mesString;
-var estadoFlujo = "menu";
+var estadoFlujo;
 var usuario = "Gomito98";
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
@@ -80,7 +80,7 @@ socketio.on('connection', function (socket) {
           " - <b>(PQ)</b> PQRS´s<br />";
         socket.emit('ai response', mensajeHola);
         estadoFlujo = TIPO_DOC;
-
+        console.log(estadoFlujo);
 
       } else if (estadoFlujo == TIPO_DOC && text == 'AF') {
 
