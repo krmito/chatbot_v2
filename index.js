@@ -91,7 +91,8 @@ socketio.on('connection', function (socket) {
 
         if ((text == 'AF') || (opcion == 'AF')) {
           console.log("Entro AF");
-
+          console.log("OPCIÓN: " + opcion);
+          
 
           if (opcion == 'incial') {
             let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
