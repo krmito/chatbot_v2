@@ -34,6 +34,8 @@ var tipoDoc = "";
 var abreviatura = "";
 var numDocumento = 0;
 var mensajeHola = "";
+
+
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
 
@@ -255,6 +257,10 @@ socketio.on('connection', function (socket) {
           socket.emit('ai response', adios);
           estadoFlujo = "menu";
         }
+      } else {
+        let adios = "Hola " + usuario + ", no te entiendo."
+        socket.emit('ai response', adios);
+        estadoFlujo = "menu";
       }
     });
     aiReq.on('error', (error) => {
