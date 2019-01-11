@@ -30,7 +30,7 @@ var usuario = "Gomito98";
 var opcion = "inicial";
 var mensajeNroDoc = "";
 var tipoDoc = "";
-var abreviatura;
+var abreviatura = "";
 var numDocumento;
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
