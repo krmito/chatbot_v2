@@ -184,7 +184,7 @@ socketio.on('connection', function (socket) {
               "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
               "- <b>(CE)</b> Cédula de extranjería.</br>";
             socket.emit('ai response', mensajeAF);
-            opcion = "AF";
+            opcion = "AF_PA";
 
             //Estado sólo para el flujo de tipo documento
             estadoFlujoTipoDocPA = "numDocPA";
