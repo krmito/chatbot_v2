@@ -67,13 +67,17 @@ socketio.on('connection', function (socket) {
       if(text == 'hola' && estadoFlujo == 'menu'){
         let mensajeHola = "Hola " + usuario + ", Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
         "¿Qué desea realizar? <br /> " +
-        "(indica el número o escriba la palabra. ejemplo: 1 para citas o 'citas')<br />" +
-        " 1. Citas<br />"+
-        " 2. Subsidios<br />" +
-        " 3. Afiliación<br />" +
-        " 4. Cancelar<br />";
+        "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
+        " (AF) Estado de afiliación<br />"+
+        " (PA) Pagos en línea<br />" +
+        " (SU) Afiliación<br />" +
+        " (PR) Pre-afiliación<br />" +
+        " (YA) Yanaconas<br />" +
+        " (VA) Valle del lili<br />" +
+        " (PQ) PQRS´s<br />";
         socket.emit('ai response', mensajeHola);
         
+        estadoFlujo = ''
       }
 
      /*  if (intentId == '26cf2070-fed7-4bff-b1db-6ba04b5d8f25') {

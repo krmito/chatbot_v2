@@ -26,6 +26,11 @@ var utilities = /** @class */ (function () {
         console.log('DIA DE LA SEMANA QUE QUIERO OBTENER ' + dias[dt.getUTCDay()]);
         return dias[dt.getUTCDay()];
     };
+
+    utilities.estados = function(){
+        var menu = "menu";
+        var 
+    }
     
     return utilities;
 }());
