@@ -21,7 +21,8 @@ var dia = fechaActual.getDate();
 var mes = fechaActual.getMonth();
 var anio = fechaActual.getFullYear();
 var mesString;
-
+var estadoFlujo = "menu";
+var usuario = "Gomito98";
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
 
@@ -63,14 +64,23 @@ socketio.on('connection', function (socket) {
       /*Si el intent de DialogFlow es el de ingresar documento,
       llamar el servicio para confirmar afiliación.*/
 
+      if(text == 'hola' && estadoFlujo == 'menu'){
+        let mensajeHola = "Hola" + usuario + ", Bienvenido a la línea de comfenalco Valle de la gente.\n" +
+        "¿Qué desea realizar?(indica el número o escriba la palabra. ejemplo: 1 para citas o 'citas')\n" +
+        " 1. Citas\n"+
+        " 2. Subsidios\n" +
+        " 3. Afiliación\n" +
+        " 4. Cancelar\n";
+        socket.emit('ai response', mensaje);
+      }
 
-      if (intentId == '26cf2070-fed7-4bff-b1db-6ba04b5d8f25') {
+     /*  if (intentId == '26cf2070-fed7-4bff-b1db-6ba04b5d8f25') {
         consultarServicio("CC", text);
         availableDates();
         let promise = new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve(datos);
-          }, 5000);
+          }, 1000);
         });
 
         promise.then((res) => {
@@ -98,7 +108,7 @@ socketio.on('connection', function (socket) {
         });
       } else {
         socket.emit('ai response', aiResponse);
-      }
+      } */
     });
 
     aiReq.on('error', (error) => {
