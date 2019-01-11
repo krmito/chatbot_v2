@@ -27,7 +27,7 @@ var mesString;
 var estadoFlujo = "init";
 var estadoFlujoTipoDoc = "";
 var estadoFlujoTipoDocPA = "";
-var usuario = "Gomito98";
+var usuario;
 var opcion = "inicial";
 var mensajeNroDoc = "";
 var tipoDoc = "";
@@ -82,7 +82,8 @@ socketio.on('connection', function (socket) {
         socket.emit('ai response', nombre);
         estadoFlujo = "menu";
       } else if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
-        mensajeHola = "Hola " + usuario + ", Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
+        usuario = text.trim();
+        mensajeHola = "Hola <b>" + usuario + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
           "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
           " - <b>(AF)</b> Estado de afiliación<br />" +
