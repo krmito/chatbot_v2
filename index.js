@@ -62,15 +62,15 @@ socketio.on('connection', function (socket) {
 
       /*Si el intent de DialogFlow es el de ingresar documento,
       llamar el servicio para confirmar afiliación.*/
-      
-      
+
+
       if (intentId == '26cf2070-fed7-4bff-b1db-6ba04b5d8f25') {
         consultarServicio("CC", text);
         availableDates();
         let promise = new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve(datos);
-          }, 2000);
+          }, 5000);
         });
 
         promise.then((res) => {
@@ -81,7 +81,7 @@ socketio.on('connection', function (socket) {
           arregloDias.forEach((element, index) => {
             console.log('heyy', index, element);
             index = index + 1;
-            availableDate +=  index + '.' + element.text;
+            availableDate += index + '.' + element.text;
           });
 
 
@@ -112,10 +112,13 @@ socketio.on('connection', function (socket) {
 
 
 function consultarServicio(tipo, cedula) {
-  servicioAfiliadoEPS.servicioAfiliadoEPS.armaObjetos(tipo, cedula, (x) => {
-    console.log('RESPONSE: ', x);
-    datos = x;
-  });
+
+  setTimeout(() => {
+    servicioAfiliadoEPS.servicioAfiliadoEPS.armaObjetos(tipo, cedula, (x) => {
+      console.log('RESPONSE: ', x);
+      datos = x;
+    });
+  }, 5000);
   return datos;
 }
 
