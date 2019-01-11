@@ -78,7 +78,7 @@ socketio.on('connection', function (socket) {
         socket.emit('ai response', mensajeHola);
 
 
-      } else if (texto == 'AF') {
+      } else if (text == 'AF') {
 
         //Cambiamos el estado del flujo
         estadoFlujo = cambiarEstado(text.toString().toUpperCase());
@@ -89,12 +89,12 @@ socketio.on('connection', function (socket) {
           "(CE) Cédula de extranjería.< /br>";
         socket.emit('ai response', mensajeAF);
 
-        if(texto == 'CC' || texto.toLowerCase() == 'cédula de ciudadanía'){
+        if(text == 'CC' || text.toLowerCase() == 'cédula de ciudadanía'){
           let tipoDoc = texto == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
           let mensajeNroDoc = usuario + ", digita tu número de " + tipoDoc;
 
           socket.emit('ai response', mensajeNroDoc);
-          
+
         }
 
       } else if (text.toString().toUpperCase() == 'PA') {
