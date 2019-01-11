@@ -83,8 +83,10 @@ socketio.on('connection', function (socket) {
         estadoFlujo = "tipoDoc";
         console.log(estadoFlujo);
 
-      } else if (estadoFlujo == "tipoDoc") {
+      } else if (estadoFlujo.localeCompare("tipoDoc")) {
 
+        console.log("Tipo Doc:" + text) ;
+        
         if (text == 'AF') {
           let mensajeAF = usuario + ", escoje tu tipo de documento</br>" +
             "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
