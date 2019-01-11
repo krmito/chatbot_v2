@@ -144,15 +144,15 @@ socketio.on('connection', function (socket) {
                   let tipoAfiliado = afiliado.tipoAfiliado;
                   let correos = afiliado.email;
 
-                  let mensajeAfilaido = "<b>" + usuario + "</b> se ha verificado exitosamente tu número de documento." +
+                  let mensajeAfilaido = "<b>" + usuario + "</b> se ha verificado tu documento exitosamente." +
                     "</br> Tu calidad de afiliado es:</br> <b>" + calidadAfiliado + "</b>" +
                     "</br> La fecha de tu afiliación es:</br> <b>" + fechaAfiliacion + "</b>" +
                     "</br> IPS de atención:</br> <b>" + tipoAfiliado + "</b>" +
                     "</br> Tu correo es:</br> <b>" + correos + ".</b>" +
-                    "</br> Que desear hacer ahora :" + usuario + "?</b>" +
+                    "</br> " + usuario + ", ¿Necesitas ayuda con algo más?</b>" +
                     "</br>" +
-                    "</br> 1. Volver al menú" +
-                    "</br> 2. Nada";
+                    "</br> (S)Si" +
+                    "</br> (N)No";
                   socket.emit('ai response', mensajeAfilaido);
                   estadoFlujo = "deseo";
                 } else {
