@@ -157,7 +157,6 @@ socketio.on('connection', function (socket) {
               });
             }
           }
-          estadoFlujoTipoDoc = "";
         }
       } else if (estadoFlujo == "deseo") {
 
