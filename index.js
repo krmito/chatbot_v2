@@ -79,10 +79,10 @@ socketio.on('connection', function (socket) {
           " - <b>(VA)</b> Valle del lili<br />" +
           " - <b>(PQ)</b> PQRS´s<br />";
         socket.emit('ai response', mensajeHola);
-        estadoFlujo = 'TIPO_DOC';
+        estadoFlujo = TIPO_DOC;
 
 
-      } else if (estadoFlujo == 'opcion' && text == 'AF') {
+      } else if (estadoFlujo == TIPO_DOC && text == 'AF') {
 
         //Cambiamos el estado del flujo
         /* estadoFlujo = cambiarEstado(text.toString().toUpperCase());
