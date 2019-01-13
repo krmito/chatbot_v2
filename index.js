@@ -68,7 +68,7 @@ socketio.on('connection', function (socket) {
     let aiReq = ai.textRequest(text, {
       sessionId: AI_SESSION_ID
     });
-    console.log("sesión ID: " + aiReq);
+    console.log("sesión ID: " + JSON.stringify(aiReq));
     console.log("Text minuscula: " + text.toLocaleLowerCase().trim());
 
     aiReq.on('response', (response) => {
