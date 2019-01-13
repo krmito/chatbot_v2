@@ -60,18 +60,20 @@ socketio.on('connection', function (socket) {
   socket.on('chat request', (text) => {
     console.log('Message: ' + text);
 
-    text = text.toLocaleLowerCase().trim();
+    
     // Get a reply from API.ai
 
     let aiReq = ai.textRequest(text, {
       sessionId: AI_SESSION_ID
     });
 
+
     aiReq.on('response', (response) => {
       console.log("TODO: " + JSON.stringify(response));
 
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
+      text = text.toLocaleLowerCase().trim();
       console.log('AI Response: ' + aiResponse);
       /*
       console.log('Intent ID: ', intentId);
