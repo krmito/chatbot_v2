@@ -78,7 +78,9 @@ socketio.on('connection', function (socket) {
 
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
-      //sesion = response.sessionId;
+      sesion = response.sessionId;
+      console.log("Sesion: " + sesion);
+      
       console.log('AI Response: ' + aiResponse);
       /*
       console.log('Intent ID: ', intentId);
@@ -263,7 +265,8 @@ socketio.on('connection', function (socket) {
           console.log(estadoFlujo);
 
         } else if (arrayNO.find(response => utilities.utilities.isContain(text.toLocaleLowerCase().trim(), response))) {
-          let adios = "Adios " + usuario + ", hasta la próxima."
+          let adios = "Adios " + usuario + ", hasta la próxima." +
+          "</br> DIME TU NOMBRE POR FAVOR (Sólo letras)"
           socket.emit('ai response', adios);
           estadoFlujo = "menu";
         }
