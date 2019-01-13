@@ -103,7 +103,7 @@ socketio.on('connection', function (socket) {
 
         console.log("Tipo Doc:" + text);
 
-        if (text.trim() == 'AF' || opcion == 'AF') {
+        if (arrayMenuAF.find(response => utilities.utilities.isContain(text, response)) || opcion == 'AF') {
           console.log("Entro AF");
           console.log("OPCIÓN: " + opcion);
 
@@ -124,7 +124,7 @@ socketio.on('connection', function (socket) {
           if (estadoFlujoTipoDoc == "numDoc") {
             console.log("Entro " + text);
 
-            if (arrayMenuAF.find(response => utilities.utilities.isContain(text, response))) {
+            if (text.trim() == 'CC' || text.trim() == 'CE') {
               abreviatura = text.trim();
               tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
               mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
