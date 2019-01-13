@@ -65,7 +65,8 @@ socketio.on('connection', function (socket) {
     let aiReq = ai.textRequest(text, {
       sessionId: AI_SESSION_ID
     });
-
+    console.log("Text minuscula: " + text.toLocaleLowerCase().trim());
+    
     aiReq.on('response', (response) => {
       console.log("TODO: " + JSON.stringify(response));
 
@@ -103,7 +104,7 @@ socketio.on('connection', function (socket) {
 
         console.log("Tipo Doc:" + text);
 
-        if (arrayMenuAF.find(response => utilities.utilities.isContain(text.toLowercase().trim(), response)) || opcion == 'AF') {
+        if (arrayMenuAF.find(response => utilities.utilities.isContain(text.toLocaleLowerCase().trim(), response)) || opcion == 'AF') {
           console.log("Entro AF");
           console.log("OPCIÓN: " + opcion);
 
