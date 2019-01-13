@@ -73,7 +73,7 @@ socketio.on('connection', function (socket) {
 
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
-      text = texto.toLocaleLowerCase().trim();
+      text = texto.toLowerCase().trim();
       console.log('AI Response: ' + aiResponse);
       /*
       console.log('Intent ID: ', intentId);
