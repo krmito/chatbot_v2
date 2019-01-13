@@ -72,14 +72,14 @@ socketio.on('connection', function (socket) {
       sessionId: AI_SESSION_ID
     });
     console.log("Text minuscula: " + text.toLocaleLowerCase().trim());
-
+    console.log("ai req: " + JSON.stringify(aiReq));
     aiReq.on('response', (response) => {
       console.log("TODO: " + JSON.stringify(response));
 
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
       sesion = response.sessionId;
-      console.log("ai req: " + JSON.parse(aiReq));
+      
       
       console.log("Sesion: " + sesion);
       console.log('AI Response: ' + aiResponse);
