@@ -38,6 +38,7 @@ var mensajeHola = "";
 var arraySaludo = ['hola', 'ola', 'buenos dias', 'buen día', 'buena tarde', 'buenas tardes', 'buena noche', 'buenas noches', 'hello'];
 var arrayMenuAF = ['af','estado de afiliación','estado de afiliacion'];
 var arrayMenuPA = ['ce','certificado de afiliación','certificado de afiliacion'];
+var arrayTipoDoc =['cc','ce','cedula', 'cédula', 'cédula de extrajería', 'cedula de extranjeria', 'cédula de ciudadanía', 'cedula de ciudadania'];
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
 
@@ -108,7 +109,6 @@ socketio.on('connection', function (socket) {
           console.log("Entro AF");
           console.log("OPCIÓN: " + opcion);
 
-
           if (opcion == 'inicial') {
             let mensajeAF = "<b>" + usuario + "</b>, digita el tipo de documento por favor</br>" +
               "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
@@ -125,7 +125,7 @@ socketio.on('connection', function (socket) {
           if (estadoFlujoTipoDoc == "numDoc") {
             console.log("Entro " + text);
 
-            if (text.trim() == 'CC' || text.trim() == 'CE') {
+            if (arrayTipoDoc.find(response => utilities.utilities.isContain(text.toLocaleLowerCase().trim(), response))) {
               abreviatura = text.trim();
               tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
               mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
