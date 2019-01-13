@@ -79,8 +79,9 @@ socketio.on('connection', function (socket) {
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
       sesion = response.sessionId;
-      console.log("Sesion: " + sesion);
+      console.log("ai req: " + aiReq);
       
+      console.log("Sesion: " + sesion);
       console.log('AI Response: ' + aiResponse);
       /*
       console.log('Intent ID: ', intentId);
