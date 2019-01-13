@@ -34,7 +34,7 @@ var tipoDoc = "";
 var abreviatura = "";
 var numDocumento = 0;
 var mensajeHola = "";
-
+var text = "";
 var arraySaludo = ['hola', 'ola', 'buenos dias', 'buen día', 'buena tarde', 'buenas tardes', 'buena noche', 'buenas noches', 'hello'];
 var arrayMenuAF = ['AF','Estado de afiliación','Estado de afiliacion'];
 var arrayMenuPA = ['CE','Certificado de afiliación','Certificado de afiliacion'];
@@ -57,13 +57,13 @@ app.get('/', (req, res) => {
 
 
 socketio.on('connection', function (socket) {
-  socket.on('chat request', (text) => {
-    console.log('Message: ' + text);
+  socket.on('chat request', (texto) => {
+    console.log('Message: ' + texto);
 
     
     // Get a reply from API.ai
 
-    let aiReq = ai.textRequest(text, {
+    let aiReq = ai.textRequest(texto, {
       sessionId: AI_SESSION_ID
     });
 
@@ -73,7 +73,7 @@ socketio.on('connection', function (socket) {
 
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
-      text = text.toLocaleLowerCase().trim();
+      text = texto.toLocaleLowerCase().trim();
       console.log('AI Response: ' + aiResponse);
       /*
       console.log('Intent ID: ', intentId);
