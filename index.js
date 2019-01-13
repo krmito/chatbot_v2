@@ -60,6 +60,7 @@ socketio.on('connection', function (socket) {
   socket.on('chat request', (text) => {
     console.log('Message: ' + text);
 
+    text = text.toLocaleLowerCase().trim();
     // Get a reply from API.ai
 
     let aiReq = ai.textRequest(text, {
