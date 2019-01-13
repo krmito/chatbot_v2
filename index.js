@@ -35,7 +35,9 @@ var abreviatura = "";
 var numDocumento = 0;
 var mensajeHola = "";
 
-
+var arraySaludo = ['hola', 'ola', 'buenos dias', 'buen día', 'buena tarde', 'buenas tardes', 'buena noche', 'buenas noches', 'hello'];
+var arrayMenuAF = ['AF','Estado de afiliación','Estado de afiliacion'];
+var arrayMenuPA = ['CE','Certificado de afiliación','Certificado de afiliacion'];
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
 
@@ -85,6 +87,7 @@ socketio.on('connection', function (socket) {
           "¿Qué desea realizar? <br /> " +
           "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
           " - <b>(AF)</b> Estado de afiliación<br />" +
+          " - <b>(CE)</b> Certificado de afiliación<br />" +
           " - <b>(PA)</b> Pagos en línea<br />" +
           " - <b>(SU)</b> Afiliación<br />" +
           " - <b>(PR)</b> Pre-afiliación<br />" +
@@ -121,7 +124,7 @@ socketio.on('connection', function (socket) {
           if (estadoFlujoTipoDoc == "numDoc") {
             console.log("Entro " + text);
 
-            if (text.trim() == 'CC' || text.trim() == 'CE') {
+            if (arrayMenuPA.find(response => utilities.utilities.isContain(text, response))) {
               abreviatura = text.trim();
               tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
               mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
@@ -166,8 +169,8 @@ socketio.on('connection', function (socket) {
           }
         }
 
-        if (text.trim() == 'PA' || opcion == 'PA') {
-          console.log("Entró a PA");
+        if (text.trim() == 'CE' || opcion == 'AF_CE') {
+          console.log("Entró a CE");
 
           let mensajeCerti = "<b>" + usuario + " </b>, ¿ Qué tipo de certificado deseas generar ? </br>" +
             " <b> - (AFI) </b> Certificado de afiliación individual.</br>" +
@@ -189,7 +192,7 @@ socketio.on('connection', function (socket) {
               "- <b>(CC)</b> Cédula de ciudadanía.</br>" +
               "- <b>(CE)</b> Cédula de extranjería.</br>";
             socket.emit('ai response', mensajeAFS);
-            opcion = "AF_PA";
+            opcion = "AF_CE";
 
             //Estado sólo para el flujo de tipo documento
             estadoFlujoTipoDocPA = "numDocPA";
@@ -204,13 +207,13 @@ socketio.on('connection', function (socket) {
               tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
               mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
               socket.emit('ai response', mensajeNroDoc);
-              estadoFlujoTipoDocPA = "validacionDocPA";
+              estadoFlujoTipoDocPA = "validacionDocCE";
               console.log(estadoFlujoTipoDocPA);
 
             }
           }
 
-          if (estadoFlujoTipoDocPA == "validacionDocPA") {
+          if (estadoFlujoTipoDocPA == "validacionDocCE") {
             if (text.trim().match(/([^a-zA-Z])/g)) {
               //Consultar el servicio
               console.log("Entró a conslar el servicio");
