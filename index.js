@@ -36,8 +36,8 @@ var numDocumento = 0;
 var mensajeHola = "";
 
 var arraySaludo = ['hola', 'ola', 'buenos dias', 'buen día', 'buena tarde', 'buenas tardes', 'buena noche', 'buenas noches', 'hello'];
-var arrayMenuAF = ['AF','Estado de afiliación','Estado de afiliacion'];
-var arrayMenuPA = ['CE','Certificado de afiliación','Certificado de afiliacion'];
+var arrayMenuAF = ['af','estado de afiliación','estado de afiliacion'];
+var arrayMenuPA = ['ce','certificado de afiliación','certificado de afiliacion'];
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
 
