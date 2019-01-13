@@ -39,6 +39,9 @@ var arraySaludo = ['hola', 'ola', 'buenos dias', 'buen día', 'buena tarde', 'bu
 var arrayMenuAF = ['af','estado de afiliación','estado de afiliacion'];
 var arrayMenuPA = ['ce','certificado de afiliación','certificado de afiliacion'];
 var arrayTipoDoc =['cc','ce','cedula', 'cédula', 'cédula de extrajería', 'cedula de extranjeria', 'cédula de ciudadanía', 'cedula de ciudadania'];
+var arraySI = ['s', 'si'];
+var arrayNO = ['n', 'no'];
+
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
 
@@ -251,12 +254,12 @@ socketio.on('connection', function (socket) {
         console.log("Entró a deseo");
 
         opcion = "inicial"
-        if (text.trim() == 1 || text.trim() == 'Volver al menu') {
+        if (arraySI.find(response => utilities.utilities.isContain(text.toLocaleLowerCase().trim(), response))) {
           socket.emit('ai response', mensajeHola);
           estadoFlujo = "tipoDoc";
           console.log(estadoFlujo);
 
-        } else if (text.trim() == 2 || text.trim() == 'Nada') {
+        } else if (arrayNO.find(response => utilities.utilities.isContain(text.toLocaleLowerCase().trim(), response))) {
           let adios = "Adios " + usuario + ", hasta la próxima."
           socket.emit('ai response', adios);
           estadoFlujo = "menu";
