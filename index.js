@@ -86,7 +86,7 @@ socketio.on('connection', function (socket) {
       llamar el servicio para confirmar afiliación.*/
       console.log("Estado iniciando: " + estadoFlujo);
       console.log("Estado  sub: " + estadoFlujoTipoDocPA);
-      
+
       if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
         mensajeHola = "Hola <b>" + usuario + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
@@ -270,7 +270,6 @@ socketio.on('connection', function (socket) {
         socket.emit('ai response', noEntiendo);
       }
     });
-    sesion = sesionId;
 
     aiReq.on('error', (error) => {
       console.log(error);
