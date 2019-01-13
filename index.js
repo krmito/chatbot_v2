@@ -34,11 +34,10 @@ var tipoDoc = "";
 var abreviatura = "";
 var numDocumento = 0;
 var mensajeHola = "";
-
-var arraySaludo = ['hola', 'ola', 'buenos dias', 'buen día', 'buena tarde', 'buenas tardes', 'buena noche', 'buenas noches', 'hello'];
-var arrayMenuAF = ['af','estado de afiliación','estado de afiliacion'];
-var arrayMenuPA = ['ce','certificado de afiliación','certificado de afiliacion'];
-var arrayTipoDoc =['cc','ce','cedula', 'cédula', 'cédula de extrajería', 'cedula de extranjeria', 'cédula de ciudadanía', 'cedula de ciudadania'];
+var sesion;
+var arrayMenuAF = ['af', 'estado de afiliación', 'estado de afiliacion'];
+var arrayMenuPA = ['ce', 'certificado de afiliación', 'certificado de afiliacion'];
+var arrayTipoDoc = ['cc', 'ce', 'cedula', 'cédula', 'cédula de extrajería', 'cedula de extranjeria', 'cédula de ciudadanía', 'cedula de ciudadania'];
 var arraySI = ['s', 'si'];
 var arrayNO = ['n', 'no'];
 
@@ -69,13 +68,15 @@ socketio.on('connection', function (socket) {
     let aiReq = ai.textRequest(text, {
       sessionId: AI_SESSION_ID
     });
+    console.log("sesión ID: " + aiReq);
     console.log("Text minuscula: " + text.toLocaleLowerCase().trim());
-    
+
     aiReq.on('response', (response) => {
       console.log("TODO: " + JSON.stringify(response));
 
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
+      //let sesionId = response.sessionId;
       console.log('AI Response: ' + aiResponse);
       /*
       console.log('Intent ID: ', intentId);
@@ -85,7 +86,7 @@ socketio.on('connection', function (socket) {
       llamar el servicio para confirmar afiliación.*/
       console.log("Estado iniciando: " + estadoFlujo);
       console.log("Estado  sub: " + estadoFlujoTipoDocPA);
-
+      
       if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
         mensajeHola = "Hola <b>" + usuario + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
@@ -160,8 +161,8 @@ socketio.on('connection', function (socket) {
                     "</br> Tu correo es:</br> <b>" + correos + ".</b>" +
                     "</br> " + usuario + ", ¿Necesitas ayuda con algo más?</b>" +
                     "</br>" +
-                    "</br> (S)Si" +
-                    "</br> (N)No";
+                    "</br> - <b>(S)</b> Si" +
+                    "</br> - <b>(N)</b> No";
                   socket.emit('ai response', mensajeAfilaido);
                   estadoFlujo = "deseo";
                 } else {
@@ -269,6 +270,8 @@ socketio.on('connection', function (socket) {
         socket.emit('ai response', noEntiendo);
       }
     });
+    sesion = sesionId;
+
     aiReq.on('error', (error) => {
       console.log(error);
     });
