@@ -103,7 +103,7 @@ socketio.on('connection', function (socket) {
         console.log("Entró a nueva sesion");
         
         //Nuevo usuario o sesión
-        user.push(sesion);
+        users.push(sesion);
         estadoFlujo = "";
         estadoFlujoTipoDoc = "";
         estadoFlujoTipoDocPA = "";
