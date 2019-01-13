@@ -127,7 +127,7 @@ socketio.on('connection', function (socket) {
 
             if (arrayTipoDoc.find(response => utilities.utilities.isContain(text.toLocaleLowerCase().trim(), response))) {
               abreviatura = text.trim();
-              tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
+              tipoDoc = text.toLocaleLowerCase().trim() == "cc" ? "Cédula de ciudadanía" : "Cédula de extranjería";
               mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
               socket.emit('ai response', mensajeNroDoc);
               estadoFlujoTipoDoc = "validacionDoc";
