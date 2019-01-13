@@ -124,7 +124,7 @@ socketio.on('connection', function (socket) {
           if (estadoFlujoTipoDoc == "numDoc") {
             console.log("Entro " + text);
 
-            if (arrayMenuPA.find(response => utilities.utilities.isContain(text, response))) {
+            if (arrayMenuAF.find(response => utilities.utilities.isContain(text, response))) {
               abreviatura = text.trim();
               tipoDoc = text == "CC" ? "Cédula de ciudadanía" : "Cédula de extranjería";
               mensajeNroDoc = "<b>" + usuario + "</b>, digita tu número de " + tipoDoc + " (EJEMPLO: 1107063182)";
