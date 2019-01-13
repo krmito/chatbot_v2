@@ -103,7 +103,7 @@ socketio.on('connection', function (socket) {
 
         console.log("Tipo Doc:" + text);
 
-        if (arrayMenuAF.find(response => utilities.utilities.isContain(text, response)) || opcion == 'AF') {
+        if (arrayMenuAF.find(response => utilities.utilities.isContain(text.toLowercase().trim(), response)) || opcion == 'AF') {
           console.log("Entro AF");
           console.log("OPCIÓN: " + opcion);
 
