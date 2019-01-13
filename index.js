@@ -170,7 +170,7 @@ socketio.on('connection', function (socket) {
                   socket.emit('ai response', mensajeAfilaido);
                   estadoFlujo = "deseo";
                 } else {
-                  let userNoFound = "Número de cédula no registrado";
+                  let userNoFound = "Número de " + tipoDoc + " no registrado";
                   socket.emit('ai response', userNoFound);
                 }
               });
