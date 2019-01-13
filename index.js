@@ -35,6 +35,9 @@ var abreviatura = "";
 var numDocumento = 0;
 var mensajeHola = "";
 var sesion;
+let users = [];
+let user;
+
 var arrayMenuAF = ['af', 'estado de afiliación', 'estado de afiliacion'];
 var arrayMenuPA = ['ce', 'certificado de afiliación', 'certificado de afiliacion'];
 var arrayTipoDoc = ['cc', 'ce', 'cedula', 'cédula', 'cédula de extrajería', 'cedula de extranjeria', 'cédula de ciudadanía', 'cedula de ciudadania'];
@@ -68,9 +71,6 @@ socketio.on('connection', function (socket) {
     let aiReq = ai.textRequest(text, {
       sessionId: AI_SESSION_ID
     });
-    sesion = JSON.parse(aiReq).sessionId;
-    console.log("Session ID: " + sesion);
-    
     console.log("Text minuscula: " + text.toLocaleLowerCase().trim());
 
     aiReq.on('response', (response) => {
@@ -78,7 +78,7 @@ socketio.on('connection', function (socket) {
 
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
-      //let sesionId = response.sessionId;
+      sesion = response.sessionId;
       console.log('AI Response: ' + aiResponse);
       /*
       console.log('Intent ID: ', intentId);
