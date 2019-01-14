@@ -36,7 +36,7 @@ var numDocumento = 0;
 var mensajeHola = "";
 var sesion = [];
 let users = new Map();
-
+var usuario;
 
 var arrayMenuAF = ['af', 'estado de afiliación', 'estado de afiliacion'];
 var arrayMenuPA = ['ce', 'certificado de afiliación', 'certificado de afiliacion'];
@@ -81,7 +81,7 @@ socketio.on('connection', function (socket) {
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
       sesion.push(response.sessionId);
-      var usuario;
+      
 
       console.log("Sesion: " + sesion);
       console.log('AI Response: ' + aiResponse);
