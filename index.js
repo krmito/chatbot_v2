@@ -50,7 +50,7 @@ socketio.on('connection', function (socket) {
 //  console.log('a user connected', socket.nsp.server.eio.clients[0]);
 
   
-  console.log('a user connected', `${socket.nsp.server.eio.clients}`.substring(0,`${socket.nsp.server.eio.clients}`.valueOf(':So')) );
+  console.log('a user connected', `${socket.nsp.server.eio.clients}`.valueOf(':So'));
 
 
 
