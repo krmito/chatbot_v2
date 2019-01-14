@@ -43,6 +43,7 @@ var arrayMenuPA = ['ce', 'certificado de afiliación', 'certificado de afiliacio
 var arrayTipoDoc = ['cc', 'ce', 'cedula', 'cédula', 'cédula de extrajería', 'cedula de extranjeria', 'cédula de ciudadanía', 'cedula de ciudadania'];
 var arraySI = ['s', 'si'];
 var arrayNO = ['n', 'no'];
+var arrayCancelar = ['ca', 'cancelar'];
 
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
@@ -81,7 +82,7 @@ socketio.on('connection', function (socket) {
       let intentId = response.result.metadata.intentId;
       sesion.push(response.sessionId);
       var usuario;
-      
+
       console.log("Sesion: " + sesion);
       console.log('AI Response: ' + aiResponse);
 
@@ -92,13 +93,13 @@ socketio.on('connection', function (socket) {
 
       let map = users.set("sesion", sesion);
       console.log(map.get("sesion"));
-      
+
 
       if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
         map = users.set("usuario", usuario);
         console.log(map.get("usuario"));
-        
+
         mensajeHola = "Hola <b>" + usuario + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
           "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
@@ -181,6 +182,12 @@ socketio.on('connection', function (socket) {
                 }
               });
             }
+          }
+
+          if (arrayCancelar.find(response => utilities.utilities.isContain(text.toLocaleLowerCase().trim(), response))) {
+            socket.emit('ai response', mensajeHola);
+            estadoFlujo = "tipoDoc";
+            opcion = "inicial";
           }
         }
 
@@ -272,7 +279,7 @@ socketio.on('connection', function (socket) {
 
         } else if (arrayNO.find(response => utilities.utilities.isContain(text.toLocaleLowerCase().trim(), response))) {
           let adios = "Adios " + usuario + ", hasta la próxima." +
-          "</br> DIME TU NOMBRE POR FAVOR (Sólo letras)"
+            "</br> DIME TU NOMBRE POR FAVOR (Sólo letras)"
           socket.emit('ai response', adios);
           estadoFlujo = "menu";
         }
