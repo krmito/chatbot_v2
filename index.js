@@ -18,7 +18,6 @@ const NUM_DOC = "numDoc";
 
 const servicioAfiliadoEPS = require('./services/consultaAfiliadoEPS');
 const utilities = require('./public/js/utilities');
-/* const objectUser = require('./clases/user'); */
 var arregloDias = [];
 var fechaActual = new Date();
 var dia = fechaActual.getDate();
@@ -36,6 +35,7 @@ var numDocumento = 0;
 var mensajeHola = "";
 var sesion;
 let users = new Map();
+let user;
 
 
 var arrayMenuAF = ['af', 'estado de afiliación', 'estado de afiliacion'];
@@ -82,7 +82,7 @@ socketio.on('connection', function (socket) {
       let intentId = response.result.metadata.intentId;
       sesion = response.sessionId;
       var usuario;
-
+      
       console.log("Sesion: " + sesion);
       console.log('AI Response: ' + aiResponse);
 
@@ -91,51 +91,27 @@ socketio.on('connection', function (socket) {
       console.log("Estado iniciando: " + estadoFlujo);
       console.log("Estado  sub: " + estadoFlujoTipoDocPA);
 
+
       if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
         let user = users.get(sesion);
+        mensajeHola = "Hola <b>" + user + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
+          "¿Qué desea realizar? <br /> " +
+          "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
+          " - <b>(AF)</b> Estado de afiliación<br />" +
+          " - <b>(CE)</b> Certificado de afiliación<br />" +
+          " - <b>(PA)</b> Pagos en línea<br />" +
+          " - <b>(SU)</b> Afiliación<br />" +
+          " - <b>(PR)</b> Pre-afiliación<br />" +
+          " - <b>(YA)</b> Yanaconas<br />" +
+          " - <b>(VA)</b> Valle del lili<br />" +
+          " - <b>(PQ)</b> PQRS´s<br />" +
+          " - <b>(CA)</b> Cancelar";
+        socket.emit('ai response', mensajeHola);
+        estadoFlujo = "tipoDoc";
+        users.set(sesion, usuario);
+        console.log(estadoFlujo);
 
-        console.log(user);
-        if (user == undefined) {
-          console.log("Entró a if");
-          
-          mensajeHola = "Hola <b>" + user + "</b>, Bienvenido a la línea de atención de <b>Comfenalco Valle de la gente</b>.<br />" +
-            "¿Qué desea realizar? <br /> " +
-            "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
-            " - <b>(AF)</b> Estado de afiliación<br />" +
-            " - <b>(CE)</b> Certificado de afiliación<br />" +
-            " - <b>(PA)</b> Pagos en línea<br />" +
-            " - <b>(SU)</b> Afiliación<br />" +
-            " - <b>(PR)</b> Pre-afiliación<br />" +
-            " - <b>(YA)</b> Yanaconas<br />" +
-            " - <b>(VA)</b> Valle del lili<br />" +
-            " - <b>(PQ)</b> PQRS´s<br />" +
-            " - <b>(CA)</b> Cancelar";
-          socket.emit('ai response', mensajeHola);
-          estadoFlujo = "tipoDoc";
-          let map = users.set("sesion", sesion, "usuario", usuario);
-          console.log(JSON.parse(map));
-          
-          console.log(estadoFlujo);
-        } else {
-          console.log("Entró a else");
-          console.log(user);
-          mensajeHola = "Hola <b>" + user + "</b>, Bienvenido a la línea de atención de <b>Comfenalco Valle de la gente</b>.<br />" +
-            "¿Qué desea realizar? <br /> " +
-            "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
-            " - <b>(AF)</b> Estado de afiliación<br />" +
-            " - <b>(CE)</b> Certificado de afiliación<br />" +
-            " - <b>(PA)</b> Pagos en línea<br />" +
-            " - <b>(SU)</b> Afiliación<br />" +
-            " - <b>(PR)</b> Pre-afiliación<br />" +
-            " - <b>(YA)</b> Yanaconas<br />" +
-            " - <b>(VA)</b> Valle del lili<br />" +
-            " - <b>(PQ)</b> PQRS´s<br />" +
-            " - <b>(CA)</b> Cancelar";
-          socket.emit('ai response', mensajeHola);
-          estadoFlujo = "tipoDoc";
-          console.log(estadoFlujo);
-        }
       } else if (estadoFlujo == "tipoDoc") {
 
         console.log("Tipo Doc:" + text);
@@ -293,7 +269,7 @@ socketio.on('connection', function (socket) {
 
         } else if (arrayNO.find(response => utilities.utilities.isContain(text.toLocaleLowerCase().trim(), response))) {
           let adios = "Adios " + usuario + ", hasta la próxima." +
-            "</br> DIME TU NOMBRE POR FAVOR (Sólo letras)"
+          "</br> DIME TU NOMBRE POR FAVOR (Sólo letras)"
           socket.emit('ai response', adios);
           estadoFlujo = "menu";
         }
