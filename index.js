@@ -93,9 +93,9 @@ socketio.on('connection', function (socket) {
 
       if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
-        let user = users.get(sesion);
+        let user = users.set(sesion);
         console.log(user);
-        if (user != undefined) {
+        if (user == undefined) {
           console.log("Entró a if");
           
           mensajeHola = "Hola <b>" + user + "</b>, Bienvenido a la línea de atención de <b>Comfenalco Valle de la gente</b>.<br />" +
@@ -112,7 +112,7 @@ socketio.on('connection', function (socket) {
             " - <b>(CA)</b> Cancelar";
           socket.emit('ai response', mensajeHola);
           estadoFlujo = "tipoDoc";
-          users.set(sesion, usuario);
+          users.set(sesion);
           console.log(estadoFlujo);
         } else {
           console.log("Entró a else");
@@ -133,8 +133,6 @@ socketio.on('connection', function (socket) {
           estadoFlujo = "tipoDoc";
           console.log(estadoFlujo);
         }
-
-
       } else if (estadoFlujo == "tipoDoc") {
 
         console.log("Tipo Doc:" + text);
