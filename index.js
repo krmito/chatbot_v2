@@ -296,6 +296,10 @@ socketio.on('connection', function (socket) {
       }
     });
 
+    socket.on('disconnect', function () {
+      io.emit('user disconnected');
+    });
+    
     aiReq.on('error', (error) => {
       console.log(error);
     });
