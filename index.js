@@ -44,7 +44,7 @@ const server = app.listen(process.env.PORT || 9780, function () {
 const socketio = require('socket.io')(server);
 socketio.on('connection', function (socket) {
 
-  console.log('a user connected', socket.nsp);
+  console.log('a user connected', socket.nsp.Namespace );
 });
 
 //Serve UI
