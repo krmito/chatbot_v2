@@ -47,7 +47,7 @@ socketio.on('connection', function (socket) {
 
   console.log('a user connected', socket.nsp.server.eio.clients);
   
-  console.log(socketio.of('/chat').clients('room'));
+  console.log(socket.of('/chat').clients('room'));
   
   
   opcion = "inicial";
