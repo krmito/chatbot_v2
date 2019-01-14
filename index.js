@@ -114,7 +114,7 @@ socketio.on('connection', function (socket) {
           socket.emit('ai response', mensajeHola);
           estadoFlujo = "tipoDoc";
           let map = users.set("sesion", sesion, "usuario", usuario);
-          console.log(map.toString());
+          console.log(JSON.stringify(map));
           
           console.log(estadoFlujo);
         } else {
