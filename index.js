@@ -91,16 +91,6 @@ socketio.on('connection', function (socket) {
       console.log("Estado iniciando: " + estadoFlujo);
       console.log("Estado  sub: " + estadoFlujoTipoDocPA);
 
-
-      if(users.find(response => utilities.utilities.isContain(sesion, response))){
-        //sesion abierta
-        console.log("Sesión vieja");
-        
-      }else{
-        //Nuevo usuario o sesión
-        console.log("Sesión nueva");
-      }
-
       if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
         let user = users.get(sesion);
