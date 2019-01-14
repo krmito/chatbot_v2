@@ -44,7 +44,7 @@ const server = app.listen(process.env.PORT || 9780, function () {
 const socketio = require('socket.io')(server);
 socketio.on('connection', function (socket) {
 
-  console.log('a user connected', socket.nsp);
+  console.log('a user connected', socket.nsp.sockets);
 
   opcion = "inicial";
   estadoFlujo = "menu";
@@ -299,7 +299,7 @@ socketio.on('connection', function (socket) {
     socket.on('disconnect', function () {
       io.emit('user disconnected');
     });
-    
+
     aiReq.on('error', (error) => {
       console.log(error);
     });
