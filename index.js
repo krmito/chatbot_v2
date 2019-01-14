@@ -114,7 +114,7 @@ socketio.on('connection', function (socket) {
           socket.emit('ai response', mensajeHola);
           estadoFlujo = "tipoDoc";
           users.set(sesion, usuario);
-          console.log(users.set(sesion, usuario));
+          console.log(users.set("sesion", sesion, "usuario", usuario));
           
           console.log(estadoFlujo);
         } else {
