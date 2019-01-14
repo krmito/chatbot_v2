@@ -36,7 +36,6 @@ var numDocumento = 0;
 var mensajeHola = "";
 var sesion;
 let users = new Map();
-let user = new ObjectUser;
 
 
 var arrayMenuAF = ['af', 'estado de afiliación', 'estado de afiliacion'];
