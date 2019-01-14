@@ -101,7 +101,7 @@ socketio.on('connection', function (socket) {
         /* map = users.set("usuario", usuario); */
         /* console.log(map.get("usuario")); */
 
-        mensajeHola = "Hola <b>" + usuario + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
+        mensajeHola = "Hola <b>" + usuario + "</b>, Bienvenido a la línea de atención de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
           "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
           " - <b>(AF)</b> Estado de afiliación<br />" +
@@ -111,7 +111,7 @@ socketio.on('connection', function (socket) {
           " - <b>(PR)</b> Pre-afiliación<br />" +
           " - <b>(YA)</b> Yanaconas<br />" +
           " - <b>(VA)</b> Valle del lili<br />" +
-          " - <b>(PQ)</b> PQRS´s<br />" +
+          " - <b>(PQR)</b> Peticiones, quejas y reclamos<br />" +
           " - <b>(CA)</b> Cancelar";
         socket.emit('ai response', mensajeHola);
         estadoFlujo = "tipoDoc";
