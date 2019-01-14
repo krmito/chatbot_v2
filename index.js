@@ -113,8 +113,8 @@ socketio.on('connection', function (socket) {
             " - <b>(CA)</b> Cancelar";
           socket.emit('ai response', mensajeHola);
           estadoFlujo = "tipoDoc";
-          users.set("sesion", sesion, "usuario", usuario);
-          console.log(users.set("sesion", sesion, "usuario", usuario));
+          let map = users.set("sesion", sesion, "usuario", usuario);
+          console.log(map.toString());
           
           console.log(estadoFlujo);
         } else {
