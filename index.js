@@ -43,7 +43,8 @@ const server = app.listen(process.env.PORT || 9780, function () {
 
 const socketio = require('socket.io')(server);
 socketio.on('connection', function (socket) {
-  console.log('a user connected');
+
+  console.log('a user connected', JSON.parse(socket));
 });
 
 //Serve UI
@@ -55,14 +56,15 @@ app.get('/', (req, res) => {
 socketio.on('connection', function (socket) {
   socket.on('chat request', (text) => {
     console.log('Message: ' + text);
-    
+
 
     // Get a reply from API.ai
 
     console.log("AI: " + JSON.stringify(ai));
-    
+
     let aiReq = ai.textRequest(text, {
       sessionId: AI_SESSION_ID
+
     });
 
     console.log("Text minuscula: " + text.toLocaleLowerCase().trim());
@@ -73,7 +75,7 @@ socketio.on('connection', function (socket) {
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
       sesion.push(response.sessionId);
-      
+
 
       console.log("Sesion: " + sesion);
       console.log('AI Response: ' + aiResponse);
@@ -87,8 +89,8 @@ socketio.on('connection', function (socket) {
       console.log(map.get("sesion"));
 
 
-      if(text.trim() == 'hola'){
-        usuario ="";
+      if (text.trim() == 'hola') {
+        usuario = "";
         estadoFlujo = "menu";
         estadoFlujoTipoDoc = "";
         opcion = "inicial";
