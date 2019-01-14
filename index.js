@@ -34,7 +34,7 @@ var tipoDoc = "";
 var abreviatura = "";
 var numDocumento = 0;
 var mensajeHola = "";
-var sesion = [];
+
 let users = new Map();
 
 
@@ -75,7 +75,7 @@ socketio.on('connection', function (socket) {
     console.log("Text minuscula: " + text.toLocaleLowerCase().trim());
     console.log("ai req: " + JSON.stringify(aiReq));
     aiReq.on('response', (response) => {
-
+      var sesion = [];
       console.log("TODO: " + JSON.stringify(response));
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
