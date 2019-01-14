@@ -42,11 +42,12 @@ const server = app.listen(process.env.PORT || 9780, function () {
 });
 
 const socketio = require('socket.io')(server);
+
 socketio.on('connection', function (socket) {
 
   console.log('a user connected', socket.nsp.server.eio.clients);
-  
 
+  
   opcion = "inicial";
   estadoFlujo = "menu";
   estadoFlujoTipoDoc = "";
@@ -299,6 +300,11 @@ socketio.on('connection', function (socket) {
       console.log(error);
     });
     aiReq.end();
+  });
+
+  socket.on('disconnect', function () { 
+    console.log("a user disconect");
+    
   });
 });
 
