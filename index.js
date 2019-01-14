@@ -96,6 +96,8 @@ socketio.on('connection', function (socket) {
         let user = users.get(sesion);
         console.log(user);
         if (user != undefined) {
+          console.log("Entró a if");
+          
           mensajeHola = "Hola <b>" + user + "</b>, Bienvenido a la línea de atención de <b>Comfenalco Valle de la gente</b>.<br />" +
             "¿Qué desea realizar? <br /> " +
             "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
@@ -113,6 +115,7 @@ socketio.on('connection', function (socket) {
           users.set(sesion, usuario);
           console.log(estadoFlujo);
         } else {
+          console.log("Entró a else");
           mensajeHola = "Hola <b>" + user + "</b>, Bienvenido a la línea de atención de <b>Comfenalco Valle de la gente</b>.<br />" +
             "¿Qué desea realizar? <br /> " +
             "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
