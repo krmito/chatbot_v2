@@ -44,9 +44,10 @@ const server = app.listen(process.env.PORT || 9780, function () {
 const socketio = require('socket.io')(server);
 socketio.on('connection', function (socket) {
 
-  console.log('a user connected', socket.nsp.Namespace.server);
+  console.log('a user connected');
 });
 
+console.log('a user connected', socket.nsp.Namespace.server);
 //Serve UI
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/app.html');
@@ -57,7 +58,7 @@ socketio.on('connection', function (socket) {
   socket.on('chat request', (text) => {
     console.log('Message: ' + text);
 
-    console.log('a user connected2', socket.nsp.Namespace.server);
+
     // Get a reply from API.ai
 
     console.log("AI: " + JSON.stringify(ai));
