@@ -27,7 +27,6 @@ var mesString;
 var estadoFlujo = "menu";
 var estadoFlujoTipoDoc = "";
 var estadoFlujoTipoDocPA = "";
-var usuario;
 var opcion = "inicial";
 var mensajeNroDoc = "";
 var tipoDoc = "";
@@ -35,8 +34,9 @@ var abreviatura = "";
 var numDocumento = 0;
 var mensajeHola = "";
 var sesion;
-let users = [];
+let users = new Map();
 let user;
+
 
 var arrayMenuAF = ['af', 'estado de afiliación', 'estado de afiliacion'];
 var arrayMenuPA = ['ce', 'certificado de afiliación', 'certificado de afiliacion'];
@@ -71,21 +71,20 @@ socketio.on('connection', function (socket) {
     let aiReq = ai.textRequest(text, {
       sessionId: AI_SESSION_ID
     });
+
     console.log("Text minuscula: " + text.toLocaleLowerCase().trim());
     console.log("ai req: " + JSON.stringify(aiReq));
     aiReq.on('response', (response) => {
-      console.log("TODO: " + JSON.stringify(response));
 
+
+      console.log("TODO: " + JSON.stringify(response));
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
       sesion = response.sessionId;
-      
+      var usuario;
       
       console.log("Sesion: " + sesion);
       console.log('AI Response: ' + aiResponse);
-      /*
-      console.log('Intent ID: ', intentId);
-      socket.emit('Intent ID: ', intentId); */
 
       /*Si el intent de DialogFlow es el de ingresar documento,
       llamar el servicio para confirmar afiliación.*/
@@ -102,11 +101,10 @@ socketio.on('connection', function (socket) {
         console.log("Sesión nueva");
       }
 
-      users.push(sesion);
-      
       if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
-        mensajeHola = "Hola <b>" + usuario + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
+        let user = users.get(sesion);
+        mensajeHola = "Hola <b>" + user + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
           "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
           " - <b>(AF)</b> Estado de afiliación<br />" +
@@ -120,6 +118,7 @@ socketio.on('connection', function (socket) {
           " - <b>(CA)</b> Cancelar";
         socket.emit('ai response', mensajeHola);
         estadoFlujo = "tipoDoc";
+        users.set(sesion, usuario);
         console.log(estadoFlujo);
 
       } else if (estadoFlujo == "tipoDoc") {
