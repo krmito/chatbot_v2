@@ -44,10 +44,9 @@ const server = app.listen(process.env.PORT || 9780, function () {
 const socketio = require('socket.io')(server);
 socketio.on('connection', function (socket) {
 
-  console.log('a user connected');
+  console.log('a user connected', socket.nsp.Namespace);
 });
 
-console.log('a user connected', socket.nsp.Namespace.server);
 //Serve UI
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/app.html');
