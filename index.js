@@ -45,7 +45,9 @@ const socketio = require('socket.io')(server);
 
 socketio.on('connection', function (socket) {
 
-  console.log('a user connected', socket.nsp.server.eio.clients.So9SdjH-QWx1nZLQAAAA);
+  console.log('a user connected', socket.nsp.server.eio.clients);
+  console.log(JSON.stringify(socket.nsp.server.eio.clients));
+  
 
   
   opcion = "inicial";
