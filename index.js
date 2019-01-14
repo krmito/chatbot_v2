@@ -45,6 +45,11 @@ const socketio = require('socket.io')(server);
 socketio.on('connection', function (socket) {
 
   console.log('a user connected', socket.nsp.Namespace);
+
+  opcion = "inicial";
+  estadoFlujo = "menu";
+  estadoFlujoTipoDoc = "";
+  usuario = "";
 });
 
 //Serve UI
