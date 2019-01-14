@@ -116,6 +116,7 @@ socketio.on('connection', function (socket) {
           console.log(estadoFlujo);
         } else {
           console.log("Entró a else");
+          console.log(user);
           mensajeHola = "Hola <b>" + user + "</b>, Bienvenido a la línea de atención de <b>Comfenalco Valle de la gente</b>.<br />" +
             "¿Qué desea realizar? <br /> " +
             "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
