@@ -45,11 +45,10 @@ const socketio = require('socket.io')(server);
 
 socketio.on('connection', function (socket) {
   CONNECTED_USERS++;
-  console.log(CONNECTED_USERS);
+  console.log("Usuario conectados: " + CONNECTED_USERS);
 
   console.log('a user connected', socket.nsp.server.eio.clients);
-  
-  console.log(socket.of('/chat').clients('room'));
+
   
   
   opcion = "inicial";
@@ -308,7 +307,7 @@ socketio.on('connection', function (socket) {
 
   socket.on('disconnect', function () { 
     CONNECTED_USERS--;
-    console.log(CONNECTED_USERS);
+    console.log("Usuarios conectados: " + CONNECTED_USERS);
     console.log("a user disconect");
     
   });
