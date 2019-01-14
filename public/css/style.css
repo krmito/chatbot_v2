@@ -72,7 +72,7 @@ body {
 .heading {
   padding: 10px 16px 10px 15px;
   margin: 0;
-  height: 70px;
+  height: 90px;
   width: 100%;
   background-color: #eee;
   z-index: 1000;
@@ -97,15 +97,15 @@ body {
 
 .heading-name-meta {
   font-weight: 500;
-  font-size: 52%;
-  padding-top: 20px;
+  font-size: 70%;
+  padding-top: 26px;
   padding-right: 1px;
   padding-bottom: 0;
-  padding-left: 1px;
-  padding-bottom: 0;
+  padding-left: 7px;
+  padding-bottom: 0px;
   text-align: center;
-  white-space: nowrap;
-  color: #000;
+  white-space: normal;
+  color: #84c929;
   display: block;
 }
 .heading-online {
