@@ -104,8 +104,8 @@ socketio.on('connection', function (socket) {
 
       if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
-        map = users.set("usuario", usuario);
-        console.log(map.get("usuario"));
+        /* map = users.set("usuario", usuario); */
+        /* console.log(map.get("usuario")); */
 
         mensajeHola = "Hola <b>" + usuario + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
