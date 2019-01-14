@@ -59,7 +59,7 @@ socketio.on('connection', function (socket) {
 
     // Get a reply from API.ai
 
-    console.log("AI: " + ai);
+    console.log("AI: " + JSON.stringify(ai));
     
     let aiReq = ai.textRequest(text, {
       sessionId: AI_SESSION_ID
