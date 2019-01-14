@@ -18,7 +18,7 @@ const NUM_DOC = "numDoc";
 
 const servicioAfiliadoEPS = require('./services/consultaAfiliadoEPS');
 const utilities = require('./public/js/utilities');
-const ObjectUser = require('./clases/user');
+/* const ObjectUser = require('./clases/user'); */
 var arregloDias = [];
 var fechaActual = new Date();
 var dia = fechaActual.getDate();
