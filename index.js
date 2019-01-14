@@ -18,6 +18,7 @@ const NUM_DOC = "numDoc";
 
 const servicioAfiliadoEPS = require('./services/consultaAfiliadoEPS');
 const utilities = require('./public/js/utilities');
+const ObjectUser = require('./clases/user');
 var arregloDias = [];
 var fechaActual = new Date();
 var dia = fechaActual.getDate();
@@ -35,7 +36,7 @@ var numDocumento = 0;
 var mensajeHola = "";
 var sesion;
 let users = new Map();
-let user;
+let user = new ObjectUser;
 
 
 var arrayMenuAF = ['af', 'estado de afiliación', 'estado de afiliacion'];
@@ -76,7 +77,6 @@ socketio.on('connection', function (socket) {
     console.log("ai req: " + JSON.stringify(aiReq));
     aiReq.on('response', (response) => {
 
-
       console.log("TODO: " + JSON.stringify(response));
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
@@ -91,10 +91,12 @@ socketio.on('connection', function (socket) {
       console.log("Estado iniciando: " + estadoFlujo);
       console.log("Estado  sub: " + estadoFlujoTipoDocPA);
 
+      let map = users.set("sesion", sesion);
+      console.log(map.get("sesion"));
+      
 
       if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
-        let user = users.get(sesion);
         mensajeHola = "Hola <b>" + user + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
           "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
@@ -109,7 +111,6 @@ socketio.on('connection', function (socket) {
           " - <b>(CA)</b> Cancelar";
         socket.emit('ai response', mensajeHola);
         estadoFlujo = "tipoDoc";
-        users.set(sesion, usuario);
         console.log(estadoFlujo);
 
       } else if (estadoFlujo == "tipoDoc") {
