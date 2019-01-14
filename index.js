@@ -12,19 +12,8 @@ const AI_SESSION_ID = uuidv1();
 const dialogflow = require('apiai');
 const ai = dialogflow(ACCESS_TOKEN);
 
-const MENU = "menu";
-const TIPO_DOC = "tipoDoc";
-const NUM_DOC = "numDoc";
-
 const servicioAfiliadoEPS = require('./services/consultaAfiliadoEPS');
 const utilities = require('./public/js/utilities');
-/* const ObjectUser = require('./clases/user'); */
-var arregloDias = [];
-var fechaActual = new Date();
-var dia = fechaActual.getDate();
-var mes = fechaActual.getMonth();
-var anio = fechaActual.getFullYear();
-var mesString;
 var estadoFlujo = "menu";
 var estadoFlujoTipoDoc = "";
 var estadoFlujoTipoDocPA = "";
@@ -66,6 +55,8 @@ app.get('/', (req, res) => {
 socketio.on('connection', function (socket) {
   socket.on('chat request', (text) => {
     console.log('Message: ' + text);
+    console.log("Socket: " + socket);
+    
 
     // Get a reply from API.ai
 
