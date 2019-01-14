@@ -91,12 +91,14 @@ socketio.on('connection', function (socket) {
       console.log("Estado  sub: " + estadoFlujoTipoDocPA);
 
       let map = users.set("sesion", sesion);
-
       console.log(map.get("sesion"));
       
 
       if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
+        map = users.set("usuario", usuario);
+        console.log(map.get("sesion"));
+        
         mensajeHola = "Hola <b>" + usuario + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
           "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
