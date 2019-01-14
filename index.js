@@ -95,6 +95,13 @@ socketio.on('connection', function (socket) {
       console.log(map.get("sesion"));
 
 
+      if(text.trim() == 'hola'){
+        usuario ="";
+        estadoFlujo = "menu";
+        estadoFlujoTipoDoc = "";
+        opcion = "inicial";
+      }
+
       if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
         map = users.set("usuario", usuario);
