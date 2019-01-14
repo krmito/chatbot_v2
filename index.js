@@ -18,6 +18,7 @@ const NUM_DOC = "numDoc";
 
 const servicioAfiliadoEPS = require('./services/consultaAfiliadoEPS');
 const utilities = require('./public/js/utilities');
+const objectUser = require('./clases/user');
 var arregloDias = [];
 var fechaActual = new Date();
 var dia = fechaActual.getDate();
@@ -35,7 +36,6 @@ var numDocumento = 0;
 var mensajeHola = "";
 var sesion;
 let users = new Map();
-let user;
 
 
 var arrayMenuAF = ['af', 'estado de afiliación', 'estado de afiliacion'];
@@ -93,7 +93,8 @@ socketio.on('connection', function (socket) {
 
       if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
-        let user = users.set(sesion);
+        let user = users.get(sesion);
+
         console.log(user);
         if (user == undefined) {
           console.log("Entró a if");
@@ -112,7 +113,7 @@ socketio.on('connection', function (socket) {
             " - <b>(CA)</b> Cancelar";
           socket.emit('ai response', mensajeHola);
           estadoFlujo = "tipoDoc";
-          users.set(sesion);
+          users.set(sesion, usuario);
           console.log(estadoFlujo);
         } else {
           console.log("Entró a else");
