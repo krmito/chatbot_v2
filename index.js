@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 socketio.on('connection', function (socket) {
   socket.on('chat request', (text) => {
     console.log('Message: ' + text);
-    console.log("Socket: " , JSON.stringify(socketio));
+    console.log("Socket: " , JSON.parse(socketio));
     
 
     // Get a reply from API.ai
