@@ -65,12 +65,10 @@ socketio.on('connection', function (socket) {
 
 
     // Get a reply from API.ai
-
     console.log("AI: " + JSON.stringify(ai));
 
     let aiReq = ai.textRequest(text, {
       sessionId: AI_SESSION_ID
-
     });
 
     console.log("Text minuscula: " + text.toLocaleLowerCase().trim());
@@ -295,10 +293,6 @@ socketio.on('connection', function (socket) {
         let noEntiendo = "Hola " + usuario + ", no te entiendo."
         socket.emit('ai response', noEntiendo);
       }
-    });
-
-    socket.on('disconnect', function () {
-      io.emit('user disconnected');
     });
 
     aiReq.on('error', (error) => {
