@@ -188,6 +188,7 @@ socketio.on('connection', function (socket) {
             socket.emit('ai response', mensajeHola);
             estadoFlujo = "tipoDoc";
             opcion = "inicial";
+            estadoFlujoTipoDoc = "";
           }
         }
 
