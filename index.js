@@ -33,7 +33,7 @@ var arrayTipoDoc = ['cc', 'ce', 'cedula', 'cédula', 'cédula de extrajería', '
 var arraySI = ['s', 'si'];
 var arrayNO = ['n', 'no'];
 var arrayCancelar = ['ca', 'cancelar'];
-
+var CONNECTED_USERS = 0;
 app.use(express.static(__dirname + '/views')); // HTML Pages
 app.use(express.static(__dirname + '/public')); // CSS, JS & Images
 
@@ -44,6 +44,8 @@ const server = app.listen(process.env.PORT || 9780, function () {
 const socketio = require('socket.io')(server);
 
 socketio.on('connection', function (socket) {
+  CONNECTED_USERS++;
+  console.log(CONNECTED_USERS);
 
   console.log('a user connected', socket.nsp.server.eio.clients);
   
@@ -305,6 +307,8 @@ socketio.on('connection', function (socket) {
   });
 
   socket.on('disconnect', function () { 
+    CONNECTED_USERS--;
+    console.log(CONNECTED_USERS);
     console.log("a user disconect");
     
   });
