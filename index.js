@@ -57,7 +57,7 @@ socketio.on('connection', function (socket) {
   socket.on('chat request', (text) => {
     console.log('Message: ' + text);
 
-
+    console.log('a user connected2', socket.nsp.Namespace.server);
     // Get a reply from API.ai
 
     console.log("AI: " + JSON.stringify(ai));
