@@ -96,7 +96,7 @@ socketio.on('connection', function (socket) {
 
       if (text.trim().match(/([a-zA-Z])/g) && estadoFlujo == "menu") {
         usuario = text.trim();
-        mensajeHola = "Hola <b>" + user + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
+        mensajeHola = "Hola <b>" + usuario + "</b>, Bienvenido a la línea de <b>Comfenalco Valle de la gente</b>.<br />" +
           "¿Qué desea realizar? <br /> " +
           "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
           " - <b>(AF)</b> Estado de afiliación<br />" +
