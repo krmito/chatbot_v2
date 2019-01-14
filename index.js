@@ -45,9 +45,10 @@ const socketio = require('socket.io')(server);
 
 socketio.on('connection', function (socket) {
 
-  console.log('a user connected', socket.nsp.server.eio.clients('Socket'));
+  console.log('a user connected', socket.nsp.server.eio.clients);
   
-
+  console.log(socketio.of('/chat').clients('room'));
+  
   
   opcion = "inicial";
   estadoFlujo = "menu";
