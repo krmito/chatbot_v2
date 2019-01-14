@@ -55,11 +55,12 @@ app.get('/', (req, res) => {
 socketio.on('connection', function (socket) {
   socket.on('chat request', (text) => {
     console.log('Message: ' + text);
-    console.log("Socket: " , JSON.parse(socketio));
     
 
     // Get a reply from API.ai
 
+    console.log("AI: " + ai);
+    
     let aiReq = ai.textRequest(text, {
       sessionId: AI_SESSION_ID
     });
