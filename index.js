@@ -95,7 +95,7 @@ socketio.on('connection', function (socket) {
         usuario = text.trim();
         let user = users.get(sesion);
         console.log(user);
-        if (user == undefined) {
+        if (user != undefined) {
           mensajeHola = "Hola <b>" + user + "</b>, Bienvenido a la línea de atención de <b>Comfenalco Valle de la gente</b>.<br />" +
             "¿Qué desea realizar? <br /> " +
             "(AYUDA: indica el número o escriba la palabra. ejemplo: 'AF' o la palabra completa 'Estado de afiliación')<br />" +
