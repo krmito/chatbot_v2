@@ -46,11 +46,12 @@ const socketio = require('socket.io')(server);
 socketio.on('connection', function (socket) {
   CONNECTED_USERS++;
   console.log("Usuario conectados: " + CONNECTED_USERS);
+  console.log(Object.keys(io.sockets.sockets));
 
   console.log('a user connected', socket.nsp.server.eio.clients);
 
-  
-  
+
+
   opcion = "inicial";
   estadoFlujo = "menu";
   estadoFlujoTipoDoc = "";
@@ -66,7 +67,6 @@ app.get('/', (req, res) => {
 socketio.on('connection', function (socket) {
   socket.on('chat request', (text) => {
     console.log('Message: ' + text);
-
 
     // Get a reply from API.ai
     console.log("AI: " + JSON.stringify(ai));
@@ -305,11 +305,11 @@ socketio.on('connection', function (socket) {
     aiReq.end();
   });
 
-  socket.on('disconnect', function () { 
+  socket.on('disconnect', function () {
     CONNECTED_USERS--;
     console.log("Usuarios conectados: " + CONNECTED_USERS);
     console.log("a user disconect");
-    
+
   });
 });
 
