@@ -34,7 +34,7 @@ var tipoDoc = "";
 var abreviatura = "";
 var numDocumento = 0;
 var mensajeHola = "";
-var sesion;
+var sesion = [];
 let users = new Map();
 
 
@@ -79,7 +79,7 @@ socketio.on('connection', function (socket) {
       console.log("TODO: " + JSON.stringify(response));
       let aiResponse = response.result.fulfillment.speech;
       let intentId = response.result.metadata.intentId;
-      sesion = response.sessionId;
+      sesion.push(response.sessionId);
       var usuario;
       
       console.log("Sesion: " + sesion);
@@ -91,6 +91,7 @@ socketio.on('connection', function (socket) {
       console.log("Estado  sub: " + estadoFlujoTipoDocPA);
 
       let map = users.set("sesion", sesion);
+
       console.log(map.get("sesion"));
       
 
