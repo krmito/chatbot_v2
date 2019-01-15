@@ -46,15 +46,12 @@ const socketio = require('socket.io')(server);
 socketio.on('connection', function (socket) {
   CONNECTED_USERS++;
   console.log("Usuario conectados: " + CONNECTED_USERS);
-//  console.log(Object.keys(io.sockets.sockets));
+ //console.log(Object.keys(io.sockets.sockets));
 
-  //console.log('a user connected', socket.nsp.server.eio.clients );
+  console.log('a user connected', socket.nsp.server.eio.clients);
 
-
-//  console.log('ESTE ES EL OBJETO',Object.values(socket.nsp.server.eio));
-
- 
-
+  
+  
   opcion = "inicial";
   estadoFlujo = "menu";
   estadoFlujoTipoDoc = "";
@@ -308,11 +305,11 @@ socketio.on('connection', function (socket) {
     aiReq.end();
   });
 
-  socket.on('disconnect', function () {
+  socket.on('disconnect', function () { 
     CONNECTED_USERS--;
     console.log("Usuarios conectados: " + CONNECTED_USERS);
     console.log("a user disconect");
-
+    
   });
 });
 
