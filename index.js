@@ -52,7 +52,7 @@ let  variable;
   console.log('a user connected', socket.nsp.server.eio.clients );
 
 
-  console.log('ESTE ES EL OBJETO',Object.values(socket.nsp.server.eio.clients));
+  console.log('ESTE ES EL OBJETO',Object.values(socket.nsp.server.eio));
 
  
   for(let i=0;i<45;i++){
