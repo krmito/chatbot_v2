@@ -50,8 +50,8 @@ socketio.on('connection', function (socket) {
 //  console.log('a user connected', socket.nsp.server.eio.clients[0]);
 
   
-  console.log('a user connected', `${socket.nsp.server.eio.clients[0]}`.toString().indexOf(':So') );
-  console.log('a user connected', `${socket.nsp.server.eio.clients[0]}`.toString().substring(0,`${socket.nsp.server.eio.clients[0]}`.toString().indexOf(':So')) );
+  console.log('a user connected', `${socket.nsp.server.eio.clients[0]}`.toString() );
+  //console.log('a user connected', `${socket.nsp.server.eio.clients[0]}`.toString().substring(0,`${socket.nsp.server.eio.clients[0]}`.toString().indexOf(':So')) );
 
 
 
