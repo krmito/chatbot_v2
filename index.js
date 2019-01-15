@@ -49,7 +49,7 @@ socketio.on('connection', function (socket) {
 //  console.log(Object.keys(io.sockets.sockets));
 let arreglo = []
 let variable;
-  console.log('a user connected', JSON.parse(JSON.stringify(`${socket.nsp.server.eio.clients}`))[0]  );
+  console.log('a user connected', socket.nsp.server.eio.clients );
 
   for(let i=0;i<45;i++){
     arreglo[i] = socket.nsp.server.eio[i]
