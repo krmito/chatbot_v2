@@ -49,14 +49,14 @@ socketio.on('connection', function (socket) {
 //  console.log(Object.keys(io.sockets.sockets));
 let arreglo = []
 let variable;
-  console.log('a user connected', socket.nsp.server.eio[0] );
+  console.log('a user connected', JSON.stringify(socket.nsp.server.eio) );
 
   for(let i=0;i<45;i++){
     arreglo[i] = socket.nsp.server.eio[i]
   }
-  console.log('mi arreglo de datos jajaja ');
-  console.log(arreglo);
-  console.log('mi variable'+variable);
+  //console.log('mi arreglo de datos jajaja ');
+  //console.log(arreglo);
+  //console.log('mi variable'+variable);
   
 
   opcion = "inicial";
