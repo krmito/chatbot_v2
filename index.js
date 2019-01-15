@@ -49,16 +49,13 @@ socketio.on('connection', function (socket) {
 //  console.log(Object.keys(io.sockets.sockets));
 let arreglo = []
 let variable;
-  console.log('a user connected', socket );
+  console.log('a user connected', socket.nsp.server.eio.clients  );
 
   for(let i=0;i<45;i++){
-    arreglo[i] = socket.nsp.server.eio[i]
+    arreglo[i] = socket.nsp.server.eio.clients[i]
   }
-  //console.log('mi arreglo de datos jajaja ');
-  //console.log(arreglo);
-  //console.log('mi variable'+variable);
+  //console.log('mi arreglo de datos jajaja');
   
-
   opcion = "inicial";
   estadoFlujo = "menu";
   estadoFlujoTipoDoc = "";
