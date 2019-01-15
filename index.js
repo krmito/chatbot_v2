@@ -47,9 +47,9 @@ socketio.on('connection', function (socket) {
   CONNECTED_USERS++;
   console.log("Usuario conectados: " + CONNECTED_USERS);
 //  console.log(Object.keys(io.sockets.sockets));
-let arreglo = []
-let variable;
-  console.log('a user connected', socket.nsp.server.eio.clients.toString()[0]  );
+let  arreglo = []
+let  variable;
+  console.log('a user connected', typeof(socket.nsp.server.eio.clients), socket.nsp.server.eio.clients );
 
   for(let i=0;i<45;i++){
     arreglo[i] = socket.nsp.server.eio.clients[i]
