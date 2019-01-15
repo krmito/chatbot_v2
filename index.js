@@ -46,12 +46,11 @@ const socketio = require('socket.io')(server);
 socketio.on('connection', function (socket) {
   CONNECTED_USERS++;
   console.log("Usuario conectados: " + CONNECTED_USERS);
-  
-//  console.log('a user connected', socket.nsp.server.eio.clients[0]);
+//  console.log(Object.keys(io.sockets.sockets));
 
-  
-  console.log('a user connected', socket.nsp.server.eio.clients[0] );
-  //console.log('a user connected', `${socket.nsp.server.eio.clients[0]}`.toString().substring(0,`${socket.nsp.server.eio.clients[0]}`.toString().indexOf(':So')) );
+  console.log('a user connected', socket.nsp.server.eio.clients[0]);
+
+
 
   opcion = "inicial";
   estadoFlujo = "menu";
