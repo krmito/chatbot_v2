@@ -54,7 +54,6 @@ let  variable;
 
   console.log('ESTE ES EL OBJETO',Object.values(socket.nsp.server.eio));
 
- arreglo = Object.values(socket.nsp.server.eio);
  
   console.log('mi arreglo de datos jajaja');
   //console.log(arreglo);
