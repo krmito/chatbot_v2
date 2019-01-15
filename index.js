@@ -49,10 +49,10 @@ socketio.on('connection', function (socket) {
 //  console.log(Object.keys(io.sockets.sockets));
 let  arreglo = []
 let  variable;
-  console.log('a user connected', typeof(socket.nsp.server.eio.clients) );
+  console.log('a user connected', socket.nsp.server.eio.clients );
 
 
-  console.log(Object.values(socket.nsp.server.eio.clients));
+  console.log('ESTE ES EL OBJETO',Object.values(socket.nsp.server.eio.clients));
 
  
   for(let i=0;i<45;i++){
