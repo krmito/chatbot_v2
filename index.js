@@ -49,7 +49,13 @@ socketio.on('connection', function (socket) {
 //  console.log(Object.keys(io.sockets.sockets));
 let  arreglo = []
 let  variable;
-  console.log('a user connected', typeof(socket.nsp.server.eio.clients), socket.nsp.server.eio.clients );
+  console.log('a user connected', typeof(socket.nsp.server.eio.clients) );
+
+
+  socket.nsp.server.eio.clients.map(x=>{
+    console.log(x);
+    
+  })
 
   for(let i=0;i<45;i++){
     arreglo[i] = socket.nsp.server.eio.clients[i]
