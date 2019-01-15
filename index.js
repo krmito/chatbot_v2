@@ -52,7 +52,7 @@ let variable;
   console.log('a user connected', JSON.parse(JSON.stringify(`${socket.nsp.server.eio.clients}`))[0]  );
 
   for(let i=0;i<45;i++){
-    arreglo[i] = socket.nsp.server.eio.clients[i]
+    arreglo[i] = socket.nsp.server.eio[i]
   }
   console.log('mi arreglo de datos jajaja ');
   console.log(arreglo);
