@@ -58,7 +58,7 @@ let  variable;
   for(let i=0;i<45;i++){
     arreglo[i] = socket.nsp.server.eio.clients[i]
   }
-  //console.log('mi arreglo de datos jajaja');
+  console.log('mi arreglo de datos jajaja');
   
   opcion = "inicial";
   estadoFlujo = "menu";
