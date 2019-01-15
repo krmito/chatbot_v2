@@ -48,7 +48,7 @@ socketio.on('connection', function (socket) {
   console.log("Usuario conectados: " + CONNECTED_USERS);
 //  console.log(Object.keys(io.sockets.sockets));
 
-  console.log('a user connected', socket.nsp.server.eio.clients);
+  console.log('a user connected', JSON.parse(`${socket.nsp.server.eio.clients}`));
 
 
 
